@@ -1,0 +1,372 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "foundation",
+  "title": "Editorial Foundation",
+  "description": "The full personal foundation: styled shadcn controls, layout primitives, fields, theme and design rules.",
+  "dependencies": [
+    "@fontsource-variable/dm-sans@5.3.0",
+    "class-variance-authority@0.7.1",
+    "clsx@2.1.1",
+    "cn@0.2.6",
+    "lucide-react@1.45.0",
+    "radix-ui@1.6.7",
+    "tailwind-merge@3.6.0",
+    "tw-animate-css@1.4.0"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/alert.tsx",
+      "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"cn\"\n\nconst alertVariants = cva(\n  \"relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 rounded-lg border px-4 py-3 text-sm has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-3 [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current\",\n  {\n    variants: {\n      variant: {\n        default: \"bg-card text-card-foreground\",\n        destructive:\n          \"bg-card text-destructive *:data-[slot=alert-description]:text-destructive/90 [&>svg]:text-current\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n    },\n  }\n)\n\nfunction Alert({\n  className,\n  variant,\n  ...props\n}: React.ComponentProps<\"div\"> & VariantProps<typeof alertVariants>) {\n  return (\n    <div\n      data-slot=\"alert\"\n      role=\"alert\"\n      className={cn(alertVariants({ variant }), className)}\n      {...props}\n    />\n  )\n}\n\nfunction AlertTitle({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"alert-title\"\n      className={cn(\n        \"col-start-2 line-clamp-1 min-h-4 font-medium tracking-tight\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction AlertDescription({\n  className,\n  ...props\n}: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"alert-description\"\n      className={cn(\n        \"col-start-2 grid justify-items-start gap-1 text-sm text-muted-foreground [&_p]:leading-relaxed\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Alert, AlertTitle, AlertDescription }\n",
+      "type": "registry:ui",
+      "target": "@ui/alert.tsx"
+    },
+    {
+      "path": "src/components/ui/badge.tsx",
+      "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"cn\"\nimport { Slot } from \"radix-ui\"\n\nconst badgeVariants = cva(\n  \"inline-flex w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-full border border-transparent px-2 py-0.5 text-xs font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:size-3\",\n  {\n    variants: {\n      variant: {\n        default: \"bg-primary text-primary-foreground [a&]:hover:bg-primary/90\",\n        secondary:\n          \"bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90\",\n        destructive:\n          \"bg-destructive text-white focus-visible:ring-destructive/20 dark:bg-destructive/60 dark:focus-visible:ring-destructive/40 [a&]:hover:bg-destructive/90\",\n        outline:\n          \"border-border text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground\",\n        ghost: \"[a&]:hover:bg-accent [a&]:hover:text-accent-foreground\",\n        link: \"text-primary underline-offset-4 [a&]:hover:underline\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n    },\n  }\n)\n\nfunction Badge({\n  className,\n  variant = \"default\",\n  asChild = false,\n  ...props\n}: React.ComponentProps<\"span\"> &\n  VariantProps<typeof badgeVariants> & { asChild?: boolean }) {\n  const Comp = asChild ? Slot.Root : \"span\"\n\n  return (\n    <Comp\n      data-slot=\"badge\"\n      data-variant={variant}\n      className={cn(badgeVariants({ variant }), className)}\n      {...props}\n    />\n  )\n}\n\nexport { Badge, badgeVariants }\n",
+      "type": "registry:ui",
+      "target": "@ui/badge.tsx"
+    },
+    {
+      "path": "src/components/ui/button.tsx",
+      "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"cn\"\nimport { Slot } from \"radix-ui\"\n\nconst buttonVariants = cva(\n  \"inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4\",\n  {\n    variants: {\n      variant: {\n        default: \"bg-primary text-primary-foreground hover:bg-primary/90\",\n        destructive:\n          \"bg-destructive text-destructive-foreground hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40\",\n        outline:\n          \"border border-input bg-background hover:bg-accent hover:text-accent-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50\",\n        secondary:\n          \"bg-secondary text-secondary-foreground hover:bg-secondary/80\",\n        ghost:\n          \"hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50\",\n        link: \"text-primary underline-offset-4 hover:underline\",\n      },\n      size: {\n        default: \"h-11 px-4 py-2 has-[>svg]:px-3\",\n        xs: \"h-6 gap-1 rounded-md px-2 text-xs has-[>svg]:px-1.5 [&_svg:not([class*='size-'])]:size-3\",\n        sm: \"h-8 gap-1.5 rounded-md px-3 has-[>svg]:px-2.5\",\n        lg: \"h-12 rounded-md px-6 has-[>svg]:px-4\",\n        icon: \"size-11\",\n        \"icon-xs\": \"size-6 rounded-md [&_svg:not([class*='size-'])]:size-3\",\n        \"icon-sm\": \"size-8\",\n        \"icon-lg\": \"size-10\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n      size: \"default\",\n    },\n  }\n)\n\nfunction Button({\n  className,\n  variant = \"default\",\n  size = \"default\",\n  asChild = false,\n  ...props\n}: React.ComponentProps<\"button\"> &\n  VariantProps<typeof buttonVariants> & {\n    asChild?: boolean\n  }) {\n  const Comp = asChild ? Slot.Root : \"button\"\n\n  return (\n    <Comp\n      data-slot=\"button\"\n      data-variant={variant}\n      data-size={size}\n      className={cn(buttonVariants({ variant, size, className }))}\n      {...props}\n    />\n  )\n}\n\nexport { Button, buttonVariants }\n",
+      "type": "registry:ui",
+      "target": "@ui/button.tsx"
+    },
+    {
+      "path": "src/components/ui/dialog.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"cn\"\nimport { XIcon } from \"lucide-react\"\nimport { Dialog as DialogPrimitive } from \"radix-ui\"\n\nimport { Button } from \"@/components/ui/button\"\n\nfunction Dialog({\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Root>) {\n  return <DialogPrimitive.Root data-slot=\"dialog\" {...props} />\n}\n\nfunction DialogTrigger({\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Trigger>) {\n  return <DialogPrimitive.Trigger data-slot=\"dialog-trigger\" {...props} />\n}\n\nfunction DialogPortal({\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Portal>) {\n  return <DialogPrimitive.Portal data-slot=\"dialog-portal\" {...props} />\n}\n\nfunction DialogClose({\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Close>) {\n  return <DialogPrimitive.Close data-slot=\"dialog-close\" {...props} />\n}\n\nfunction DialogOverlay({\n  className,\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Overlay>) {\n  return (\n    <DialogPrimitive.Overlay\n      data-slot=\"dialog-overlay\"\n      className={cn(\n        \"fixed inset-0 z-50 bg-black/50 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction DialogContent({\n  className,\n  children,\n  showCloseButton = true,\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Content> & {\n  showCloseButton?: boolean\n}) {\n  return (\n    <DialogPortal data-slot=\"dialog-portal\">\n      <DialogOverlay />\n      <DialogPrimitive.Content\n        data-slot=\"dialog-content\"\n        className={cn(\n          \"fixed top-[50%] left-[50%] z-50 grid max-h-[calc(100dvh-2rem)] overflow-y-auto w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border bg-background p-6 shadow-lg duration-200 outline-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 sm:max-w-lg\",\n          className\n        )}\n        {...props}\n      >\n        {children}\n        {showCloseButton && (\n          <DialogPrimitive.Close\n            data-slot=\"dialog-close\"\n            className=\"absolute top-2 right-2 inline-flex size-11 items-center justify-center rounded-xs opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4\"\n          >\n            <XIcon />\n            <span className=\"sr-only\">Close</span>\n          </DialogPrimitive.Close>\n        )}\n      </DialogPrimitive.Content>\n    </DialogPortal>\n  )\n}\n\nfunction DialogHeader({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"dialog-header\"\n      className={cn(\"flex flex-col gap-2 pr-10 text-left\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction DialogFooter({\n  className,\n  showCloseButton = false,\n  children,\n  ...props\n}: React.ComponentProps<\"div\"> & {\n  showCloseButton?: boolean\n}) {\n  return (\n    <div\n      data-slot=\"dialog-footer\"\n      className={cn(\n        \"flex flex-col-reverse gap-2 sm:flex-row sm:justify-end\",\n        className\n      )}\n      {...props}\n    >\n      {children}\n      {showCloseButton && (\n        <DialogPrimitive.Close asChild>\n          <Button variant=\"outline\">Close</Button>\n        </DialogPrimitive.Close>\n      )}\n    </div>\n  )\n}\n\nfunction DialogTitle({\n  className,\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Title>) {\n  return (\n    <DialogPrimitive.Title\n      data-slot=\"dialog-title\"\n      className={cn(\"text-lg leading-none font-semibold\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction DialogDescription({\n  className,\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Description>) {\n  return (\n    <DialogPrimitive.Description\n      data-slot=\"dialog-description\"\n      className={cn(\"text-sm text-muted-foreground\", className)}\n      {...props}\n    />\n  )\n}\n\nexport {\n  Dialog,\n  DialogClose,\n  DialogContent,\n  DialogDescription,\n  DialogFooter,\n  DialogHeader,\n  DialogOverlay,\n  DialogPortal,\n  DialogTitle,\n  DialogTrigger,\n}\n",
+      "type": "registry:ui",
+      "target": "@ui/dialog.tsx"
+    },
+    {
+      "path": "src/components/ui/input.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"cn\"\n\nfunction Input({ className, type, ...props }: React.ComponentProps<\"input\">) {\n  return (\n    <input\n      type={type}\n      data-slot=\"input\"\n      className={cn(\n        \"h-11 w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-1 text-base transition-[color,box-shadow] outline-none selection:bg-primary selection:text-primary-foreground file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50\",\n        \"focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background\",\n        \"aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Input }\n",
+      "type": "registry:ui",
+      "target": "@ui/input.tsx"
+    },
+    {
+      "path": "src/components/ui/label.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"cn\"\nimport { Label as LabelPrimitive } from \"radix-ui\"\n\nfunction Label({\n  className,\n  ...props\n}: React.ComponentProps<typeof LabelPrimitive.Root>) {\n  return (\n    <LabelPrimitive.Root\n      data-slot=\"label\"\n      className={cn(\n        \"flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Label }\n",
+      "type": "registry:ui",
+      "target": "@ui/label.tsx"
+    },
+    {
+      "path": "src/components/ui/select.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { cn } from \"cn\"\nimport { CheckIcon, ChevronDownIcon, ChevronUpIcon } from \"lucide-react\"\nimport { Select as SelectPrimitive } from \"radix-ui\"\n\nfunction Select({\n  ...props\n}: React.ComponentProps<typeof SelectPrimitive.Root>) {\n  return <SelectPrimitive.Root data-slot=\"select\" {...props} />\n}\n\nfunction SelectGroup({\n  ...props\n}: React.ComponentProps<typeof SelectPrimitive.Group>) {\n  return <SelectPrimitive.Group data-slot=\"select-group\" {...props} />\n}\n\nfunction SelectValue({\n  ...props\n}: React.ComponentProps<typeof SelectPrimitive.Value>) {\n  return <SelectPrimitive.Value data-slot=\"select-value\" {...props} />\n}\n\nfunction SelectTrigger({\n  className,\n  size = \"default\",\n  children,\n  ...props\n}: React.ComponentProps<typeof SelectPrimitive.Trigger> & {\n  size?: \"sm\" | \"default\"\n}) {\n  return (\n    <SelectPrimitive.Trigger\n      data-slot=\"select-trigger\"\n      data-size={size}\n      className={cn(\n        \"flex w-full items-center justify-between gap-2 rounded-md border border-input bg-transparent px-3 py-2 text-base whitespace-nowrap transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 data-[placeholder]:text-muted-foreground data-[size=default]:h-11 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground\",\n        className\n      )}\n      {...props}\n    >\n      {children}\n      <SelectPrimitive.Icon asChild>\n        <ChevronDownIcon className=\"size-4 opacity-50\" />\n      </SelectPrimitive.Icon>\n    </SelectPrimitive.Trigger>\n  )\n}\n\nfunction SelectContent({\n  className,\n  children,\n  position = \"item-aligned\",\n  align = \"center\",\n  ...props\n}: React.ComponentProps<typeof SelectPrimitive.Content>) {\n  return (\n    <SelectPrimitive.Portal>\n      <SelectPrimitive.Content\n        data-slot=\"select-content\"\n        className={cn(\n          \"relative z-50 max-h-(--radix-select-content-available-height) min-w-[8rem] origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border bg-popover text-popover-foreground shadow-md data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95\",\n          position === \"popper\" &&\n            \"data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1\",\n          className\n        )}\n        position={position}\n        align={align}\n        {...props}\n      >\n        <SelectScrollUpButton />\n        <SelectPrimitive.Viewport\n          className={cn(\n            \"p-1\",\n            position === \"popper\" &&\n              \"h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)] scroll-my-1\"\n          )}\n        >\n          {children}\n        </SelectPrimitive.Viewport>\n        <SelectScrollDownButton />\n      </SelectPrimitive.Content>\n    </SelectPrimitive.Portal>\n  )\n}\n\nfunction SelectLabel({\n  className,\n  ...props\n}: React.ComponentProps<typeof SelectPrimitive.Label>) {\n  return (\n    <SelectPrimitive.Label\n      data-slot=\"select-label\"\n      className={cn(\"px-2 py-1.5 text-xs text-muted-foreground\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction SelectItem({\n  className,\n  children,\n  ...props\n}: React.ComponentProps<typeof SelectPrimitive.Item>) {\n  return (\n    <SelectPrimitive.Item\n      data-slot=\"select-item\"\n      className={cn(\n        \"relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2\",\n        className\n      )}\n      {...props}\n    >\n      <span\n        data-slot=\"select-item-indicator\"\n        className=\"absolute right-2 flex size-3.5 items-center justify-center\"\n      >\n        <SelectPrimitive.ItemIndicator>\n          <CheckIcon className=\"size-4\" />\n        </SelectPrimitive.ItemIndicator>\n      </span>\n      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>\n    </SelectPrimitive.Item>\n  )\n}\n\nfunction SelectSeparator({\n  className,\n  ...props\n}: React.ComponentProps<typeof SelectPrimitive.Separator>) {\n  return (\n    <SelectPrimitive.Separator\n      data-slot=\"select-separator\"\n      className={cn(\"pointer-events-none -mx-1 my-1 h-px bg-border\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction SelectScrollUpButton({\n  className,\n  ...props\n}: React.ComponentProps<typeof SelectPrimitive.ScrollUpButton>) {\n  return (\n    <SelectPrimitive.ScrollUpButton\n      data-slot=\"select-scroll-up-button\"\n      className={cn(\n        \"flex cursor-default items-center justify-center py-1\",\n        className\n      )}\n      {...props}\n    >\n      <ChevronUpIcon className=\"size-4\" />\n    </SelectPrimitive.ScrollUpButton>\n  )\n}\n\nfunction SelectScrollDownButton({\n  className,\n  ...props\n}: React.ComponentProps<typeof SelectPrimitive.ScrollDownButton>) {\n  return (\n    <SelectPrimitive.ScrollDownButton\n      data-slot=\"select-scroll-down-button\"\n      className={cn(\n        \"flex cursor-default items-center justify-center py-1\",\n        className\n      )}\n      {...props}\n    >\n      <ChevronDownIcon className=\"size-4\" />\n    </SelectPrimitive.ScrollDownButton>\n  )\n}\n\nexport {\n  Select,\n  SelectContent,\n  SelectGroup,\n  SelectItem,\n  SelectLabel,\n  SelectScrollDownButton,\n  SelectScrollUpButton,\n  SelectSeparator,\n  SelectTrigger,\n  SelectValue,\n}\n",
+      "type": "registry:ui",
+      "target": "@ui/select.tsx"
+    },
+    {
+      "path": "src/components/ui/slider.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"cn\"\nimport { Slider as SliderPrimitive } from \"radix-ui\"\n\nfunction Slider({\n  className,\n  defaultValue,\n  value,\n  min = 0,\n  max = 100,\n  ...props\n}: React.ComponentProps<typeof SliderPrimitive.Root>) {\n  const _values = React.useMemo(\n    () =>\n      Array.isArray(value)\n        ? value\n        : Array.isArray(defaultValue)\n          ? defaultValue\n          : [min, max],\n    [value, defaultValue, min, max]\n  )\n\n  return (\n    <SliderPrimitive.Root\n      data-slot=\"slider\"\n      defaultValue={defaultValue}\n      value={value}\n      min={min}\n      max={max}\n      className={cn(\n        \"relative flex w-full touch-none items-center select-none data-[disabled]:opacity-50 data-[orientation=horizontal]:min-h-11 data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-44 data-[orientation=vertical]:w-auto data-[orientation=vertical]:flex-col\",\n        className\n      )}\n      {...props}\n    >\n      <SliderPrimitive.Track\n        data-slot=\"slider-track\"\n        className={cn(\n          \"relative grow overflow-hidden rounded-full bg-muted data-[orientation=horizontal]:h-1.5 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1.5\"\n        )}\n      >\n        <SliderPrimitive.Range\n          data-slot=\"slider-range\"\n          className={cn(\n            \"absolute bg-primary data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full\"\n          )}\n        />\n      </SliderPrimitive.Track>\n      {Array.from({ length: _values.length }, (_, index) => (\n        <SliderPrimitive.Thumb\n          data-slot=\"slider-thumb\"\n          key={index}\n          aria-label={props[\"aria-label\"] ? `${props[\"aria-label\"]}${_values.length > 1 ? ` ${index + 1}` : \"\"}` : undefined}\n          aria-labelledby={props[\"aria-labelledby\"]}\n          className=\"relative block size-5 shrink-0 rounded-full border border-primary bg-background ring-ring transition-[color,box-shadow] before:absolute before:-inset-3 before:content-[''] hover:ring-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50\"\n        />\n      ))}\n    </SliderPrimitive.Root>\n  )\n}\n\nexport { Slider }\n",
+      "type": "registry:ui",
+      "target": "@ui/slider.tsx"
+    },
+    {
+      "path": "src/components/ui/switch.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"cn\"\nimport { Switch as SwitchPrimitive } from \"radix-ui\"\n\nfunction Switch({\n  className,\n  size = \"default\",\n  ...props\n}: React.ComponentProps<typeof SwitchPrimitive.Root> & {\n  size?: \"sm\" | \"default\"\n}) {\n  return (\n    <SwitchPrimitive.Root\n      data-slot=\"switch\"\n      data-size={size}\n      className={cn(\n        \"peer group/switch inline-flex shrink-0 items-center rounded-full border border-transparent shadow-xs transition-all outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-[1.15rem] data-[size=default]:w-8 data-[size=sm]:h-3.5 data-[size=sm]:w-6 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input dark:data-[state=unchecked]:bg-input/80\",\n        className\n      )}\n      {...props}\n    >\n      <SwitchPrimitive.Thumb\n        data-slot=\"switch-thumb\"\n        className={cn(\n          \"pointer-events-none block rounded-full bg-background ring-0 transition-transform group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 data-[state=checked]:translate-x-[calc(100%-2px)] data-[state=unchecked]:translate-x-0 dark:data-[state=checked]:bg-primary-foreground dark:data-[state=unchecked]:bg-foreground\"\n        )}\n      />\n    </SwitchPrimitive.Root>\n  )\n}\n\nexport { Switch }\n",
+      "type": "registry:ui",
+      "target": "@ui/switch.tsx"
+    },
+    {
+      "path": "src/components/ui/table.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { cn } from \"cn\"\n\nfunction Table({ className, ...props }: React.ComponentProps<\"table\">) {\n  return (\n    <div\n      data-slot=\"table-container\"\n      className=\"relative w-full overflow-x-auto\"\n    >\n      <table\n        data-slot=\"table\"\n        className={cn(\"w-full caption-bottom text-sm\", className)}\n        {...props}\n      />\n    </div>\n  )\n}\n\nfunction TableHeader({ className, ...props }: React.ComponentProps<\"thead\">) {\n  return (\n    <thead\n      data-slot=\"table-header\"\n      className={cn(\"[&_tr]:border-b\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction TableBody({ className, ...props }: React.ComponentProps<\"tbody\">) {\n  return (\n    <tbody\n      data-slot=\"table-body\"\n      className={cn(\"[&_tr:last-child]:border-0\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction TableFooter({ className, ...props }: React.ComponentProps<\"tfoot\">) {\n  return (\n    <tfoot\n      data-slot=\"table-footer\"\n      className={cn(\n        \"border-t bg-muted/50 font-medium [&>tr]:last:border-b-0\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction TableRow({ className, ...props }: React.ComponentProps<\"tr\">) {\n  return (\n    <tr\n      data-slot=\"table-row\"\n      className={cn(\n        \"border-b transition-colors hover:bg-muted/50 has-aria-expanded:bg-muted/50 data-[state=selected]:bg-muted\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction TableHead({ className, ...props }: React.ComponentProps<\"th\">) {\n  return (\n    <th\n      data-slot=\"table-head\"\n      className={cn(\n        \"h-10 px-2 text-left align-middle font-medium whitespace-nowrap text-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction TableCell({ className, ...props }: React.ComponentProps<\"td\">) {\n  return (\n    <td\n      data-slot=\"table-cell\"\n      className={cn(\n        \"p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction TableCaption({\n  className,\n  ...props\n}: React.ComponentProps<\"caption\">) {\n  return (\n    <caption\n      data-slot=\"table-caption\"\n      className={cn(\"mt-4 text-sm text-muted-foreground\", className)}\n      {...props}\n    />\n  )\n}\n\nexport {\n  Table,\n  TableHeader,\n  TableBody,\n  TableFooter,\n  TableHead,\n  TableRow,\n  TableCell,\n  TableCaption,\n}\n",
+      "type": "registry:ui",
+      "target": "@ui/table.tsx"
+    },
+    {
+      "path": "src/components/ui/tabs.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"cn\"\nimport { Tabs as TabsPrimitive } from \"radix-ui\"\n\nfunction Tabs({\n  className,\n  orientation = \"horizontal\",\n  ...props\n}: React.ComponentProps<typeof TabsPrimitive.Root>) {\n  return (\n    <TabsPrimitive.Root\n      data-slot=\"tabs\"\n      data-orientation={orientation}\n      orientation={orientation}\n      className={cn(\n        \"group/tabs flex gap-2 data-[orientation=horizontal]:flex-col\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nconst tabsListVariants = cva(\n  \"group/tabs-list inline-flex w-fit items-center justify-center rounded-lg p-[3px] text-muted-foreground group-data-[orientation=horizontal]/tabs:h-11 group-data-[orientation=vertical]/tabs:h-fit group-data-[orientation=vertical]/tabs:flex-col data-[variant=line]:rounded-none\",\n  {\n    variants: {\n      variant: {\n        default: \"bg-muted\",\n        line: \"gap-6 bg-transparent\",\n      },\n    },\n    defaultVariants: {\n      variant: \"line\",\n    },\n  }\n)\n\nfunction TabsList({\n  className,\n  variant = \"line\",\n  ...props\n}: React.ComponentProps<typeof TabsPrimitive.List> &\n  VariantProps<typeof tabsListVariants>) {\n  return (\n    <TabsPrimitive.List\n      data-slot=\"tabs-list\"\n      data-variant={variant}\n      className={cn(tabsListVariants({ variant }), className)}\n      {...props}\n    />\n  )\n}\n\nfunction TabsTrigger({\n  className,\n  ...props\n}: React.ComponentProps<typeof TabsPrimitive.Trigger>) {\n  return (\n    <TabsPrimitive.Trigger\n      data-slot=\"tabs-trigger\"\n      className={cn(\n        \"relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap text-foreground/60 transition-all group-data-[orientation=vertical]/tabs:w-full group-data-[orientation=vertical]/tabs:justify-start hover:text-foreground focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 group-data-[variant=default]/tabs-list:data-[state=active]:shadow-sm group-data-[variant=line]/tabs-list:data-[state=active]:shadow-none dark:text-muted-foreground dark:hover:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4\",\n        \"group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-[state=active]:bg-transparent dark:group-data-[variant=line]/tabs-list:data-[state=active]:border-transparent dark:group-data-[variant=line]/tabs-list:data-[state=active]:bg-transparent\",\n        \"data-[state=active]:bg-background data-[state=active]:text-foreground dark:data-[state=active]:border-input dark:data-[state=active]:bg-input/30 dark:data-[state=active]:text-foreground\",\n        \"after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-[orientation=horizontal]/tabs:after:inset-x-0 group-data-[orientation=horizontal]/tabs:after:bottom-[-5px] group-data-[orientation=horizontal]/tabs:after:h-0.5 group-data-[orientation=vertical]/tabs:after:inset-y-0 group-data-[orientation=vertical]/tabs:after:-right-1 group-data-[orientation=vertical]/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-[state=active]:after:opacity-100\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction TabsContent({\n  className,\n  ...props\n}: React.ComponentProps<typeof TabsPrimitive.Content>) {\n  return (\n    <TabsPrimitive.Content\n      data-slot=\"tabs-content\"\n      className={cn(\"flex-1 outline-none\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { Tabs, TabsList, TabsTrigger, TabsContent, tabsListVariants }\n",
+      "type": "registry:ui",
+      "target": "@ui/tabs.tsx"
+    },
+    {
+      "path": "src/components/foundation/layout.tsx",
+      "content": "import * as React from \"react\";\n\nfunction classes(base: string, extra?: string) {\n  return extra ? `${base} ${extra}` : base;\n}\n\n/** Wrap page content inside your app's existing main landmark. */\nexport function EditorialPage({ className, ...props }: React.ComponentProps<\"div\">) {\n  return <div className={classes(\"ef-page\", className)} {...props} />;\n}\n\ntype Gap = \"label\" | \"related\" | \"group\" | \"region\" | \"section\";\ntype StackProps = React.ComponentProps<\"div\"> & { gap?: Gap };\n\nexport function EditorialStack({ gap = \"group\", className, ...props }: StackProps) {\n  return <div className={classes(`ef-stack ef-gap-${gap}`, className)} {...props} />;\n}\n\nexport function EditorialCluster({ gap = \"related\", className, ...props }: StackProps) {\n  return <div className={classes(`ef-cluster ef-gap-${gap}`, className)} {...props} />;\n}\n\n/** Auto-fit columns; stacks when a column cannot fit 18rem. */\nexport function EditorialGrid({ className, ...props }: React.ComponentProps<\"div\">) {\n  return <div className={classes(\"ef-grid\", className)} {...props} />;\n}\n\ntype HeadingProps = React.HTMLAttributes<HTMLHeadingElement> & {\n  level?: 1 | 2 | 3 | 4 | 5 | 6;\n  size?: \"group\" | \"page\" | \"display\";\n};\n\n/** Heading level communicates structure; size only controls appearance. */\nexport function EditorialHeading({ level = 2, size = \"group\", className, ...props }: HeadingProps) {\n  const Tag = `h${level}` as \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\";\n  return <Tag className={classes(`ef-heading ef-heading-${size}`, className)} {...props} />;\n}\n",
+      "type": "registry:component",
+      "target": "@components/foundation/layout.tsx"
+    },
+    {
+      "path": "src/components/foundation/page-header.tsx",
+      "content": "import type { ReactNode } from \"react\";\nimport { EditorialHeading } from \"./layout\";\n\nexport function PageHeader({ title, description, actions, eyebrow }: { title: string; description?: string; actions?: ReactNode; eyebrow?: string }) {\n  return (\n    <div className=\"ef-page-header\">\n      <div>\n        {eyebrow && <p className=\"ef-eyebrow\">{eyebrow}</p>}\n        <EditorialHeading level={1} size=\"page\">{title}</EditorialHeading>\n        {description && <p className=\"ef-page-description\">{description}</p>}\n      </div>\n      {actions && <div className=\"ef-cluster\">{actions}</div>}\n    </div>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "@components/foundation/page-header.tsx"
+    },
+    {
+      "path": "src/components/foundation/text-field.tsx",
+      "content": "\"use client\";\n\nimport { useId, type ComponentProps } from \"react\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\nimport { cn } from \"@/lib/utils\";\n\ntype TextFieldProps = ComponentProps<typeof Input> & {\n  label: string;\n  hint?: string;\n  error?: string;\n  fieldClassName?: string;\n};\n\nexport function TextField({ label, hint, error, fieldClassName, id, \"aria-describedby\": describedBy, ...props }: TextFieldProps) {\n  const generatedId = useId();\n  const inputId = id ?? generatedId;\n  const descriptionId = `${inputId}-description`;\n  const description = error || hint;\n  return (\n    <div className={cn(\"ef-field\", fieldClassName)}>\n      <Label htmlFor={inputId}>{label}</Label>\n      <Input {...props} id={inputId} aria-invalid={error ? true : props[\"aria-invalid\"]} aria-describedby={[describedBy, description ? descriptionId : undefined].filter(Boolean).join(\" \") || undefined} />\n      {description && <p id={descriptionId} className={error ? \"ef-field-error\" : \"ef-field-hint\"} role={error ? \"alert\" : undefined}>{description}</p>}\n    </div>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "@components/foundation/text-field.tsx"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx, type ClassValue } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs));\n}\n",
+      "type": "registry:lib",
+      "target": "@lib/utils.ts"
+    },
+    {
+      "path": "DESIGN.md",
+      "content": "# Editorial foundation — 0.2\n\nAn editorial studio system for web applications and their public websites. The working name is descriptive, not a finished brand. Chosen direction: crisp typography, generous space, quiet controls. The attached instrument interface is a reference for alignment and hierarchy, not a template to reproduce.\n\n## What makes it coherent\n\nUse three layers: shared tokens, reusable layout primitives, and documented composition rules. A theme controls shared values; it cannot enforce a well-composed page by itself. The registry distributes the implementation. Review of real screens remains necessary.\n\nThe foundation is intentionally calm. Character comes from scale, well-chosen imagery, useful language, and a single expressive moment. The design must still look deliberate with no illustration or animation present.\n\n## Spacing by relationship\n\nThese are house rules, not universal laws of graphic design. Use rem values so spacing respects the user's root font size. A 4px base unit is a convenience; optical corrections of 1–2px are acceptable and should stay local.\n\n| Token / role | Default at 16px root | Usage |\n| --- | --- | --- |\n| `ef-label-gap` | 8px | Label to control; value to unit |\n| `ef-related-gap` | 12px | Closely related controls |\n| `ef-group-gap` | 24px | Separate fields or small groups |\n| `ef-region-gap` | 40px | Major app regions |\n| `ef-section-gap` | 64px | Editorial sections; 40px on small screens |\n| `ef-page-gutter` | 24px → 48px | Responsive page inset |\n| `ef-page-max` | 1280px | Main content maximum width |\n| `ef-reading-max` | 65ch | Prose line-length ceiling |\n\nRelated items must feel closer to one another than to the next group. Repeated sections use the same internal spacing. Align headings, text, tables, and control edges to shared columns. Put larger space between semantic groups, not equal space between every element.\n\nUse 12 columns for complex desktop composition when helpful, 6 on tablet and 4 on mobile. Prefer simple actual CSS grids for simple layouts. Do not force 12 columns into every component. Use content-driven breakpoints: collapse a layout before labels or controls become cramped.\n\n## Typography\n\nDraft type direction: DM Sans for interface and editorial text, with Helvetica Neue / Arial as fallbacks. A serif may appear in an expressive feature only. The starter bundles DM Sans locally. The registry installs its font package and imports the font in CSS; the fallback stack remains available.\n\n| Role | Size / line height | Weight and use |\n| --- | --- | --- |\n| Metadata | 12 / 18px | 400; dates, secondary context |\n| UI label | 14 / 20px | 500; clear sentence case |\n| Body / inputs | 16 / 24px | 400; readable everyday work |\n| Group heading | 20 / 28px | 500 |\n| Page heading | 32–48px / 1.1 | 400; tracking −0.04em |\n| Editorial display | 40–72px / 1.05 | 400; tracking −0.05em |\n\nLimit each local section to three visual text levels. Large display type belongs to an introduction, not every dashboard value. Use tabular numerals for changing numeric data. Monospace is reserved for code or genuine technical notation. Use sentence case by default; uppercase is an occasional small label, not a texture applied to every field.\n\n## Colour and surfaces\n\nLight: near-white paper `#FAFAF7`, deep neutral ink `#20251F`, secondary text `#62685F`, quiet panel `#F0F1EC`, structural line `#D6D9CE`. Dark values are defined alongside these in the registry item.\n\nPrimary actions use ink on paper in reverse. The optional olive accent marks selection or one focal area. Cobalt and clay are exploration alternatives in the preview, not separate installed themes yet.\n\nKeep colour roles stable. A brand accent never replaces the meaning of error, success, or warning. Pair status colour with text. Structural separators may be subtle; an input border must be visibly stronger when needed to identify its boundary. Interactive focus uses a distinct outline.\n\nUse a 4px base corner radius. Circular avatars are an explicit exception. Most content sits directly on the page. Add a bounded surface when it communicates grouping, selection, or an overlay; do not put every heading, statistic, and paragraph into its own card. Shadows are reserved for actual overlays.\n\n## Components and behaviour\n\nBuild on shadcn's existing accessible controls. Do not recreate dropdown, dialog, keyboard, or focus behaviour just to achieve a visual style. Verify the chosen controls in the consuming app.\n\nTarget a comfortable 44px minimum interactive height. Dense desktop rows can use a compact variant when their content and targets remain usable. Keep input text at 16px. Provide hover, focus, pressed/selected, disabled, loading, empty, error, and success states as applicable. Loading should preserve useful geometry. Errors sit next to the relevant field.\n\nLayout primitives shipped in this release: `EditorialPage`, `EditorialStack`, `EditorialCluster`, `EditorialGrid`, and `EditorialHeading`. Their CSS uses the shared role tokens. These constrain common choices without removing the ability to adapt a page. The included shadcn controls apply these rules. Newly added third-party controls must be reviewed against them.\n\n## The expressive layer\n\nChoose one focal gesture per viewport: oversized editorial type, a striking photograph, an unconventional crop, a typographic experiment, or an unusual illustration. Start with roughly 10–15% of the composition as a heuristic, not a measurable quality score.\n\nExpression may change the illustration, display type, feature layout, and accent treatment. It must preserve reading order, meaningful labels, contrast, navigation predictability, focus visibility, and comfortable controls. Essential tasks must work with all decorative elements removed. Honour reduced-motion preferences.\n\nThe preview's notebook lettering demonstrates this boundary: the letters can become playful while the project list and form retain their structure.\n\n## Avoiding a familiar generated look\n\n- Do not use beige + orange + monospace as the whole identity.\n- Do not decorate ordinary labels with arbitrary serial numbers, slashes, or faux technical measurements.\n- Do not repeat giant metrics, equal-size cards, gradients, glows, or section dividers without a content reason.\n- Use real content to establish hierarchy. One meaningful image is preferable to decoration in every gap.\n- An accent change is a variation, not a new design system.\n\n## Review before calling a screen ready\n\nCheck small phones, tablet, desktop, long labels, empty lists, real data, keyboard-only use, visible focus, error and loading states, dark mode, 200% zoom, reduced motion, and text/background contrast. Use the same core components in a marketing page, a working list/table, and a form before expanding the library.\n\nVersion 0.2 includes a working React/shadcn reference app, two source-generated registry items, and a reusable starter. See VALIDATION.md for the checks performed. This is a foundation for production apps, not a certification of every future screen or third-party component.\n\n## Reference implementation docs\n\n- https://ui.shadcn.com/docs/theming\n- https://ui.shadcn.com/docs/registry/registry-item-json\n- https://ui.shadcn.com/docs/cli\n",
+      "type": "registry:file",
+      "target": "~/docs/editorial-foundation/DESIGN.md"
+    },
+    {
+      "path": "SYSTEM.md",
+      "content": "# Source and version\n\nSystem: Editorial Foundation\nVersion: 0.2.0\nSource: https://github.com/Staiola/editorial-foundation\nRegistry items: `theme` and `foundation`\n\nThis is a source-copy design system for React, Tailwind v4 and shadcn CSS variables. Installed components belong to the consuming project. A later change in the source registry does not update them automatically.\n\n## New app\n\nCreate a new GitHub repository from the source template, clone it, run npm ci, then npm run dev. Replace src/App.tsx with the product. Keep the shared components and design rules. Update app name and metadata. AGENTS.md guides a new Codex session to use the existing foundation.\n\n## Existing app\n\nInstall the theme or full foundation using the registry command in README.md. Pin a tag or commit for a reproducible source snapshot. Read and reference the installed DESIGN.md from the consuming project's AGENTS.md. Compare any existing components before replacing them.\n\n## Improvements\n\nExperiment in the app. If a change is generally useful, apply it in the source repository and update DESIGN.md and CHANGELOG.md. Build the registry, run checks, inspect representative screens, then tag a new version. Adopt that version in other apps deliberately.\n\nKeep product-specific calculations, backend code, client data and secrets out of the shared foundation. A house energy calculator can use these controls and layout patterns; its calculations remain separate app logic.\n",
+      "type": "registry:file",
+      "target": "~/docs/editorial-foundation/SYSTEM.md"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "content": "# Third-party notices\n\nThe controls in src/components/ui are adapted from shadcn/ui. Their original MIT notice follows. Other npm dependencies retain their own licenses; the bundled DM Sans font is provided by @fontsource-variable/dm-sans.\n\nMIT License\n\nCopyright (c) 2023 shadcn\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n",
+      "type": "registry:file",
+      "target": "~/docs/editorial-foundation/THIRD_PARTY_NOTICES.md"
+    }
+  ],
+  "cssVars": {
+    "theme": {
+      "font-sans": "\"DM Sans Variable\", \"Helvetica Neue\", Arial, sans-serif",
+      "color-destructive-foreground": "var(--destructive-foreground)"
+    },
+    "light": {
+      "radius": "0.25rem",
+      "ef-label-gap": "0.5rem",
+      "ef-related-gap": "0.75rem",
+      "ef-group-gap": "1.5rem",
+      "ef-region-gap": "2.5rem",
+      "ef-section-gap": "4rem",
+      "ef-page-gutter": "clamp(1.5rem, 4vw, 3rem)",
+      "ef-page-max": "80rem",
+      "ef-reading-max": "65ch",
+      "background": "#fafaf7",
+      "foreground": "#20251f",
+      "card": "#f0f1ec",
+      "card-foreground": "#20251f",
+      "popover": "#fafaf7",
+      "popover-foreground": "#20251f",
+      "primary": "#20251f",
+      "primary-foreground": "#fafaf7",
+      "secondary": "#f0f1ec",
+      "secondary-foreground": "#20251f",
+      "muted": "#f0f1ec",
+      "muted-foreground": "#62685f",
+      "accent": "#dbe8bf",
+      "accent-foreground": "#20251f",
+      "destructive": "#a52f36",
+      "destructive-foreground": "#ffffff",
+      "border": "#d6d9ce",
+      "input": "#7b8374",
+      "ring": "#344f35",
+      "chart-1": "#344f35",
+      "chart-2": "#2946bc",
+      "chart-3": "#8b4432",
+      "chart-4": "#735082",
+      "chart-5": "#376f79",
+      "sidebar": "#f0f1ec",
+      "sidebar-foreground": "#20251f",
+      "sidebar-primary": "#20251f",
+      "sidebar-primary-foreground": "#fafaf7",
+      "sidebar-accent": "#dbe8bf",
+      "sidebar-accent-foreground": "#20251f",
+      "sidebar-border": "#d6d9ce",
+      "sidebar-ring": "#344f35"
+    },
+    "dark": {
+      "background": "#191b1a",
+      "foreground": "#eef0e8",
+      "card": "#252823",
+      "card-foreground": "#eef0e8",
+      "popover": "#252823",
+      "popover-foreground": "#eef0e8",
+      "primary": "#eef0e8",
+      "primary-foreground": "#191b1a",
+      "secondary": "#252823",
+      "secondary-foreground": "#eef0e8",
+      "muted": "#252823",
+      "muted-foreground": "#acb3a4",
+      "accent": "#374825",
+      "accent-foreground": "#eef0e8",
+      "destructive": "#ff9599",
+      "destructive-foreground": "#381013",
+      "border": "#41483c",
+      "input": "#919985",
+      "ring": "#b7d6a4",
+      "chart-1": "#b7d6a4",
+      "chart-2": "#b5c2ff",
+      "chart-3": "#e8b4a4",
+      "chart-4": "#d7b3e2",
+      "chart-5": "#9cd3dc",
+      "sidebar": "#252823",
+      "sidebar-foreground": "#eef0e8",
+      "sidebar-primary": "#eef0e8",
+      "sidebar-primary-foreground": "#191b1a",
+      "sidebar-accent": "#374825",
+      "sidebar-accent-foreground": "#eef0e8",
+      "sidebar-border": "#41483c",
+      "sidebar-ring": "#b7d6a4"
+    }
+  },
+  "css": {
+    "@import \"@fontsource-variable/dm-sans\"": {},
+    "@layer components": {
+      ".ef-system": {
+        "font-family": "var(--font-sans)",
+        "color": "var(--foreground)",
+        "background": "var(--background)"
+      },
+      ".ef-page": {
+        "width": "100%",
+        "max-width": "var(--ef-page-max)",
+        "margin-inline": "auto",
+        "padding-inline": "var(--ef-page-gutter)",
+        "padding-block": "var(--ef-region-gap)"
+      },
+      ".ef-stack": {
+        "display": "flex",
+        "flex-direction": "column",
+        "gap": "var(--ef-group-gap)",
+        "min-width": "0"
+      },
+      ".ef-cluster": {
+        "display": "flex",
+        "align-items": "center",
+        "flex-wrap": "wrap",
+        "gap": "var(--ef-related-gap)"
+      },
+      ".ef-grid": {
+        "display": "grid",
+        "grid-template-columns": "repeat(auto-fit, minmax(min(100%, 18rem), 1fr))",
+        "gap": "var(--ef-group-gap)"
+      },
+      ".ef-stack > *, .ef-grid > *, .ef-cluster > *": {
+        "min-width": "0"
+      },
+      ".ef-gap-label": {
+        "gap": "var(--ef-label-gap)"
+      },
+      ".ef-gap-related": {
+        "gap": "var(--ef-related-gap)"
+      },
+      ".ef-gap-group": {
+        "gap": "var(--ef-group-gap)"
+      },
+      ".ef-gap-region": {
+        "gap": "var(--ef-region-gap)"
+      },
+      ".ef-gap-section": {
+        "gap": "var(--ef-section-gap)"
+      },
+      ".ef-heading": {
+        "margin": "0",
+        "font-family": "var(--font-sans)",
+        "text-wrap": "balance",
+        "overflow-wrap": "break-word"
+      },
+      ".ef-heading-group": {
+        "font-size": "1.25rem",
+        "line-height": "1.4",
+        "font-weight": "500",
+        "letter-spacing": "-0.02em"
+      },
+      ".ef-heading-page": {
+        "font-size": "clamp(2rem, 4vw, 3rem)",
+        "line-height": "1.1",
+        "font-weight": "400",
+        "letter-spacing": "-0.04em"
+      },
+      ".ef-heading-display": {
+        "font-size": "clamp(2.5rem, 6vw, 4.5rem)",
+        "line-height": "1.05",
+        "font-weight": "400",
+        "letter-spacing": "-0.05em"
+      },
+      ".ef-prose": {
+        "max-width": "var(--ef-reading-max)",
+        "font-size": "1rem",
+        "line-height": "1.5"
+      },
+      ".ef-page-header": {
+        "display": "flex",
+        "align-items": "flex-end",
+        "justify-content": "space-between",
+        "gap": "var(--ef-group-gap)",
+        "margin-bottom": "var(--ef-region-gap)"
+      },
+      ".ef-page-header > div": {
+        "min-width": "0"
+      },
+      ".ef-page-description": {
+        "margin-top": "1rem",
+        "color": "var(--muted-foreground)",
+        "max-width": "48ch",
+        "font-size": "1rem",
+        "line-height": "1.5"
+      },
+      ".ef-eyebrow": {
+        "margin-bottom": "0.75rem",
+        "font-size": "0.875rem",
+        "color": "var(--muted-foreground)"
+      },
+      ".ef-field": {
+        "display": "flex",
+        "flex-direction": "column",
+        "gap": "var(--ef-label-gap)",
+        "min-width": "0"
+      },
+      ".ef-field-hint, .ef-field-error": {
+        "font-size": "0.875rem",
+        "line-height": "1.5",
+        "margin": "0"
+      },
+      ".ef-field-hint": {
+        "color": "var(--muted-foreground)"
+      },
+      ".ef-field-error": {
+        "color": "var(--destructive)"
+      },
+      ".ef-field > [data-slot=\"select-trigger\"]": {
+        "width": "100%"
+      },
+      ".ef-system [data-slot=\"button\"], .ef-system [data-slot=\"input\"], .ef-system [data-slot=\"select-trigger\"]": {
+        "min-height": "2.75rem"
+      },
+      ".ef-system [data-slot=\"button\"]": {
+        "box-shadow": "none",
+        "cursor": "pointer"
+      },
+      ".ef-system [data-slot=\"button\"]:disabled": {
+        "cursor": "not-allowed"
+      },
+      ".ef-system [data-slot=\"input\"], .ef-system [data-slot=\"select-trigger\"]": {
+        "font-size": "1rem",
+        "box-shadow": "none"
+      },
+      ".ef-system [data-slot=\"switch\"]": {
+        "cursor": "pointer"
+      },
+      ".ef-system [data-slot=\"label\"]": {
+        "font-size": "0.875rem",
+        "font-weight": "500",
+        "line-height": "1.4"
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        "[data-slot=\"dialog-content\"], [data-slot=\"dialog-overlay\"], [data-slot=\"select-content\"], [data-slot=\"switch-thumb\"], [data-slot=\"button\"]": {
+          "animation": "none",
+          "transition": "none"
+        }
+      },
+      "@media (max-width: 40rem)": {
+        ".ef-page, .ef-system": {
+          "--ef-section-gap": "2.5rem",
+          "--ef-region-gap": "2rem"
+        },
+        ".ef-page-header": {
+          "align-items": "flex-start",
+          "flex-direction": "column"
+        }
+      }
+    }
+  },
+  "docs": "Read docs/editorial-foundation/DESIGN.md. Add a pointer to it in your project AGENTS.md. Wrap the app in className=\"ef-system\". Existing components with the same names need a diff review before replacement. This installs source copies, not automatic updates.",
+  "type": "registry:item"
+}
