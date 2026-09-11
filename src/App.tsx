@@ -12,9 +12,13 @@ import { Slider } from "@/components/ui/slider";
 import { PageHeader } from "@/components/foundation/page-header";
 import { TextField } from "@/components/foundation/text-field";
 import { EditorialHeading, EditorialStack, EditorialCluster } from "@/components/foundation/layout";
-import tokens from "./styles/tokens.json";
+import editorialTokens from "./styles/tokens.json";
+import stoneTokens from "./styles/stone.tokens.json";
+import config from "../system.config.json";
+import packageInfo from "../package.json";
+type Style = "editorial" | "stone";
 
-const VERSION = "0.2.0";
+const VERSION = packageInfo.version;
 
 function ThemeToggle() {
   const [dark, setDark] = useState(() => {
@@ -24,13 +28,14 @@ function ThemeToggle() {
   return <Button variant="ghost" size="icon" aria-label={dark ? "Use light theme" : "Use dark theme"} onClick={() => { const value = !dark; setDark(value); try { localStorage.setItem("editorial-theme", value ? "dark" : "light"); } catch { /* Preference remains in memory. */ } }}>{dark ? <Sun /> : <Moon />}</Button>;
 }
 
-function FoundationReference() {
+function FoundationReference({ style }: { style: Style }) {
+  const tokens = style === "stone" ? stoneTokens : editorialTokens;
   const gaps = [["Label", 8], ["Related", 12], ["Group", 24], ["Region", 40], ["Section", 64]] as const;
   const [playful, setPlayful] = useState(false);
   return <>
-    <PageHeader eyebrow="Personal design system" title="A clear starting point." description="Editorial structure. Thoughtful spacing. Room for a little expression." actions={<span className="version">Version {VERSION}</span>} />
+    <PageHeader eyebrow="Personal design system" title={style === "stone" ? "A different kind of clarity." : "A clear starting point."} description={style === "stone" ? "Stone / Geist, editorial serif and warm neutrals." : "Editorial structure. Thoughtful spacing. Room for a little expression."} actions={<span className="version">Version {VERSION}</span>} />
     <div className="reference-grid">
-      <section className="reference-section type-study"><div className="section-label">01 / Typography</div><div className="type-display">Quietly<br /><em>confident.</em></div><p className="type-body">A good interface makes the next step feel obvious. Give each piece of information enough room to do its job.</p><div className="type-caption">DM Sans · 400 / 500 · Locally bundled</div></section>
+      <section className="reference-section type-study"><div className="section-label">01 / Typography</div><div className="type-display">{style === "stone" ? <>Built for<br /><em>perspective.</em></> : <>Quietly<br /><em>confident.</em></>}</div><p className="type-body">A good interface makes the next step feel obvious. Give each piece of information enough room to do its job.</p><div className="type-caption">{style === "stone" ? "Geist + Source Serif 4 · Locally bundled" : "DM Sans · 400 / 500 · Locally bundled"}</div></section>
       <section className="reference-section"><div className="section-label">02 / Spacing relationships</div><div className="spacing-list">{gaps.map(([name, size]) => <div className="spacing-row" key={name}><span>{name}</span><div className="spacing-track"><span style={{ width: `${size * 2}px` }} /></div><code>{size}px</code></div>)}</div><p className="secondary-note">Closer within a group. More space between groups.</p></section>
       <section className="reference-section"><div className="section-label">03 / Semantic colour</div><div className="swatch-grid">{([['Paper','background'],['Ink','foreground'],['Surface','card'],['Accent','accent']] as const).map(([name,token])=><div key={token}><div className="swatch" style={{background:`var(--${token})`}}/><span>{name}</span><code>{tokens.light[token].toUpperCase()}</code></div>)}</div><p className="secondary-note">Light values shown. Switch themes to inspect their dark counterparts.</p></section>
       <section className="reference-section expression-study"><div className="section-label">04 / Optional expression</div><div className={`expression-type ${playful ? 'is-playful' : ''}`} aria-label="Experimental Aa lettering"><span>A</span><span>a</span><span>.</span></div><div className="switch-row"><Label htmlFor="playful">Let the lettering play</Label><Switch id="playful" checked={playful} onCheckedChange={setPlayful} /></div></section>
@@ -70,5 +75,17 @@ function WorkspaceExample() {
 }
 
 export default function App() {
-  return <div className="ef-system"><a className="skip-link" href="#main-content">Skip to content</a><header className="site-header"><a className="wordmark" href="/" aria-label="Editorial Foundation home">editorial<span>foundation</span><span className="wordmark-dot">.</span></a><div className="header-tools"><span className="header-caption">Your personal starting point</span><ThemeToggle/></div></header><Tabs defaultValue="foundation" className="site-tabs"><nav className="site-nav" aria-label="Reference pages"><TabsList><TabsTrigger value="foundation">Foundations</TabsTrigger><TabsTrigger value="components">Components</TabsTrigger><TabsTrigger value="workspace">Example app</TabsTrigger></TabsList><span className="version">v{VERSION}</span></nav><main id="main-content" className="site-main"><TabsContent value="foundation"><FoundationReference/></TabsContent><TabsContent value="components"><ComponentsReference/></TabsContent><TabsContent value="workspace"><WorkspaceExample/></TabsContent></main></Tabs><footer className="site-footer"><span>Editorial Foundation</span><span>Design rules + components + registry</span></footer></div>;
+  const [style, setStyle] = useState<Style>(() => {
+    const requested = new URLSearchParams(location.search).get("style");
+    return requested === "stone" || requested === "editorial" ? requested : config.defaultStyle === "stone" ? "stone" : "editorial";
+  });
+  useEffect(() => { document.documentElement.dataset.style = style; }, [style]);
+  function changeStyle(value: string) {
+    if (value !== "stone" && value !== "editorial") return;
+    setStyle(value);
+    const url = new URL(location.href); url.searchParams.set("style", value);
+    history.replaceState(null, "", url);
+  }
+
+  return <div className="ef-system"><a className="skip-link" href="#main-content">Skip to content</a><header className="site-header"><a className="wordmark" href="/" aria-label="Editorial Foundation home">editorial<span>foundation</span><span className="wordmark-dot">.</span></a><div className="header-tools"><div className="style-picker"><Label htmlFor="style-picker">Style</Label><Select value={style} onValueChange={changeStyle}><SelectTrigger id="style-picker"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="editorial">Editorial</SelectItem><SelectItem value="stone">Stone</SelectItem></SelectContent></Select></div><ThemeToggle/></div></header><Tabs defaultValue="foundation" className="site-tabs"><nav className="site-nav" aria-label="Reference pages"><TabsList><TabsTrigger value="foundation">Foundations</TabsTrigger><TabsTrigger value="components">Components</TabsTrigger><TabsTrigger value="workspace">Example app</TabsTrigger></TabsList><span className="version">v{VERSION}</span></nav><main id="main-content" className="site-main"><TabsContent value="foundation"><FoundationReference style={style}/></TabsContent><TabsContent value="components"><ComponentsReference/></TabsContent><TabsContent value="workspace"><WorkspaceExample/></TabsContent></main></Tabs><footer className="site-footer"><span>Editorial Foundation · {style === "stone" ? "Stone" : "Original"}</span><span>Design rules + components + registry</span></footer></div>;
 }

@@ -1,5 +1,6 @@
 {
   "name": "editorial-foundation",
   "repository": "https://github.com/Staiola/editorial-foundation",
-  "owner": "Staiola"
+  "owner": "Staiola",
+  "defaultStyle": "editorial"
 }

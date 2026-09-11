@@ -24,3 +24,14 @@
 .site-nav [data-slot=tabs-trigger]::after,.workspace-tabs [data-slot=tabs-trigger]::after{display:none}
 
 .workspace-filter{display:flex;gap:28px;border-bottom:1px solid var(--border);margin-bottom:32px}.workspace-filter [data-slot=button]{border:0;border-bottom:2px solid transparent;border-radius:0;padding:12px 0;background:transparent;color:var(--muted-foreground)}.workspace-filter [aria-pressed=true]{border-bottom-color:var(--foreground);color:var(--foreground)}.workspace-filter span{font-size:.75rem;margin-left:8px}
+
+.style-picker{display:flex;align-items:center;gap:12px}.style-picker [data-slot=select-trigger]{min-width:128px}
+[data-style=stone] .type-display{letter-spacing:-.025em;line-height:1.05}
+[data-style=stone] .type-display em,[data-style=stone] .expression-type span:nth-child(2){font-family:var(--ef-font-serif);font-style:normal}
+[data-style=stone] .section-label,[data-style=stone] .type-caption,[data-style=stone] .version{font-family:var(--ef-font-mono)}
+[data-style=stone] .section-label{text-transform:uppercase;letter-spacing:.04em}
+[data-style=stone] .wordmark{font-weight:400;letter-spacing:-.04em}
+[data-style=stone] .wordmark-dot{color:var(--foreground)}
+[data-style=stone] .expression-type{background:var(--foreground);color:var(--background);border-bottom:8px solid var(--accent)}
+[data-style=stone] .site-nav [data-state=active]{border-bottom-color:var(--ring)}
+@media(max-width:560px){.site-header{flex-wrap:wrap;gap:16px}.header-tools{gap:12px}.style-picker{gap:8px}.style-picker [data-slot=select-trigger]{min-width:116px}}

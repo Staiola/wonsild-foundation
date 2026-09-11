@@ -1,4 +1,4 @@
-# Editorial foundation — 0.2
+# Editorial foundation — 0.3
 
 An editorial studio system for web applications and their public websites. The working name is descriptive, not a finished brand. Chosen direction: crisp typography, generous space, quiet controls. The attached instrument interface is a reference for alignment and hierarchy, not a template to reproduce.
 
@@ -46,7 +46,7 @@ Limit each local section to three visual text levels. Large display type belongs
 
 Light: near-white paper `#FAFAF7`, deep neutral ink `#20251F`, secondary text `#62685F`, quiet panel `#F0F1EC`, structural line `#D6D9CE`. Dark values are defined alongside these in the registry item.
 
-Primary actions use ink on paper in reverse. The optional olive accent marks selection or one focal area. Cobalt and clay are exploration alternatives in the preview, not separate installed themes yet.
+Primary actions use ink on paper in reverse. The optional olive accent marks selection or one focal area. Stone is a separate installed variation; see STONE.md for its palette and typography.
 
 Keep colour roles stable. A brand accent never replaces the meaning of error, success, or warning. Pair status colour with text. Structural separators may be subtle; an input border must be visibly stronger when needed to identify its boundary. Interactive focus uses a distinct outline.
 
@@ -80,10 +80,12 @@ The preview's notebook lettering demonstrates this boundary: the letters can bec
 
 Check small phones, tablet, desktop, long labels, empty lists, real data, keyboard-only use, visible focus, error and loading states, dark mode, 200% zoom, reduced motion, and text/background contrast. Use the same core components in a marketing page, a working list/table, and a form before expanding the library.
 
-Version 0.2 includes a working React/shadcn reference app, two source-generated registry items, and a reusable starter. See VALIDATION.md for the checks performed. This is a foundation for production apps, not a certification of every future screen or third-party component.
+Version 0.3 includes a working React/shadcn reference app, four source-generated registry items, and a reusable starter. See VALIDATION.md for the checks performed. This is a foundation for production apps, not a certification of every future screen or third-party component.
 
 ## Reference implementation docs
 
 - https://ui.shadcn.com/docs/theming
 - https://ui.shadcn.com/docs/registry/registry-item-json
 - https://ui.shadcn.com/docs/cli
+
+The original visual direction above remains the default. Stone inherits the spacing, component and interaction rules; STONE.md supplies its alternative type and colour rules.

@@ -1,9 +1,9 @@
 # Source and version
 
 System: Editorial Foundation
-Version: 0.2.0
+Version: 0.3.0
 Source: https://github.com/Staiola/editorial-foundation
-Registry items: `theme` and `foundation`
+Registry items: `theme`, `foundation`, `stone-theme` and `stone-foundation`
 
 This is a source-copy design system for React, Tailwind v4 and shadcn CSS variables. Installed components belong to the consuming project. A later change in the source registry does not update them automatically.
 
@@ -20,3 +20,5 @@ Install the theme or full foundation using the registry command in README.md. Pi
 Experiment in the app. If a change is generally useful, apply it in the source repository and update DESIGN.md and CHANGELOG.md. Build the registry, run checks, inspect representative screens, then tag a new version. Adopt that version in other apps deliberately.
 
 Keep product-specific calculations, backend code, client data and secrets out of the shared foundation. A house energy calculator can use these controls and layout patterns; its calculations remain separate app logic.
+
+Styles share source components. `system.config.json` selects a template default; `npm run style:set -- stone` generates Stone as the default app theme. Registry items select their own explicit tokens independently of the template default. Original v0.2.0 installs remain pinned and unchanged.

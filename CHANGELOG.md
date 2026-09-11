@@ -1,3 +1,10 @@
+# 0.3.0
+
+- Add Stone with Geist, Geist Mono, Source Serif 4 and the warm neutral/yellow reference palette.
+- Add independent stone-theme and stone-foundation registry items using shared components.
+- Compare both styles in all reference screens; choose a lasting template default with style:set.
+- Preserve original style and prior release. Check contrast for both modes of both styles.
+
 # Changelog
 
 ## 0.2.0

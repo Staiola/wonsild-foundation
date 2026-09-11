@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-const tokens=JSON.parse(readFileSync(new URL('../src/styles/tokens.json',import.meta.url),'utf8'));
+const variants=['tokens.json','stone.tokens.json'];
 function luminance(hex){
   if(!/^#[0-9a-f]{6}$/i.test(hex)) throw new Error(`Contrast checker expects opaque six-digit hex colours: ${hex}`);
   const rgb=[1,3,5].map(i=>parseInt(hex.slice(i,i+2),16)/255).map(v=>v<=0.04045?v/12.92:((v+0.055)/1.055)**2.4);
@@ -7,6 +7,8 @@ function luminance(hex){
 }
 const textPairs=[['foreground','background'],['muted-foreground','background'],['muted-foreground','card'],['primary-foreground','primary'],['accent-foreground','accent'],['destructive','background'],['destructive-foreground','destructive']];
 let count=0;
+for(const file of variants){
+const tokens=JSON.parse(readFileSync(new URL(`../src/styles/${file}`,import.meta.url),'utf8'));
 for(const mode of ['light','dark']){
   for(const [fg,bg] of [...textPairs,['input','background'],['ring','background']]){
     const [low,high]=[luminance(tokens[mode][fg]),luminance(tokens[mode][bg])].sort((a,b)=>a-b);
@@ -14,5 +16,6 @@ for(const mode of ['light','dark']){
     if(ratio<minimum) throw new Error(`${mode}: ${fg}/${bg} is ${ratio.toFixed(2)}:1, below ${minimum}:1`);
     count++;
   }
+}
 }
 console.log(`Checked ${count} opaque token contrast pairs. Whole-screen accessibility still requires UI review.`);

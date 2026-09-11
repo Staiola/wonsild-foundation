@@ -19,3 +19,12 @@ Limits:
 - An installation with existing customised components requires a diff review; the clean-project test cannot establish compatibility with every existing app.
 
 Remote GitHub/template and CI verification is recorded in the delivery result once publishing completes.
+
+## 0.3.0 — Stone variation
+
+- `npm run check` passed: 36 opaque colour pairs across both styles and light/dark modes, four registry items built by the shadcn CLI, TypeScript and production build.
+- A separate configured Vite/shadcn app installed the local `stone-foundation` JSON successfully (19 files), then passed its production build. Browser inspection confirmed Geist body text, Source Serif 4 display headings, stone background and 44px input height without reference-app CSS.
+- `style:set` was exercised in an isolated template configuration for both Stone and Editorial; each generated its intended default tokens.
+- Reference preview inspected at desktop and 375px phone widths. Stone foundations and controls were visually checked; the phone components and example app had no document overflow. The mobile project dialog displayed empty-name validation and successfully created an in-memory project. Dialog Escape closing and Stone dark mode were exercised.
+- Original style remains separately selectable; the existing v0.2.0 release remains available. This release does not replace installed copies in other apps.
+- These checks do not constitute a full assistive-technology or cross-browser audit. Stone uses Source Serif 4 for its display serif and defines its own dark palette.

@@ -16,4 +16,4 @@ jobs:
       - run: npm ci
       - run: npm run check
       - name: Check generated files are current
-        run: git diff --exit-code -- registry.json public/r src/styles/theme.css
+        run: git diff --exit-code -- registry.json public/r src/styles/theme.css src/styles/preview-themes.css

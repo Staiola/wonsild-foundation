@@ -3,8 +3,32 @@
 Your personal editorial design system: styled shadcn components, a working reference app, reusable layouts, and a registry for other projects.
 
 **Source:** https://github.com/Staiola/editorial-foundation  
-**Version:** 0.2.0  
+**Version:** 0.3.0
 **Start here:** [DESIGN.md](DESIGN.md) for visual rules; [SYSTEM.md](SYSTEM.md) for how copies and updates work.
+
+## Choose a style
+
+**Editorial** is the original DM Sans / paper / olive style. **Stone** uses Geist, Source Serif 4, warm stone, charcoal and yellow. Both live here and share the same controls and spacing rules. See [STONE.md](STONE.md) for the type pairing and style rules.
+
+Use the **Style** menu in the reference app to compare them on every screen, including light and dark mode. `?style=stone` opens the Stone preview; this URL setting is only for comparison.
+
+For a new app from this template, choose Stone with `npm run style:set -- stone`. Run `npm run style:set -- editorial` to restore the original default. These commands change the generated app theme, so the choice survives replacing the reference app.
+
+For an existing configured shadcn app:
+
+```sh
+npx shadcn@latest add Staiola/editorial-foundation/stone-foundation#v0.3.0
+```
+
+For only the Stone theme and layout CSS:
+
+```sh
+npx shadcn@latest add Staiola/editorial-foundation/stone-theme#v0.3.0
+```
+
+A fresh-session prompt / Raycast snippet:
+
+> Use the Stone variation of my design system at https://github.com/Staiola/editorial-foundation. For a new app, start from that template and run npm run style:set -- stone. Read AGENTS.md, DESIGN.md and STONE.md. Reuse its typography, spacing and shared controls. Build: [describe the app].
 
 ## Start a new app
 
@@ -31,20 +55,20 @@ The app contains three views:
 - **Components:** real interactive controls and selected, disabled, invalid and feedback states.
 - **Example app:** a project list, settings form, empty state and keyboard-accessible create dialog.
 
-The example data is held in memory and resets when the view is remounted or the app reloads. Only the theme preference is stored in the browser. It is a design reference, not a backend application.
+The example data is held in memory and resets when the view is remounted or the app reloads. Only the light/dark preference is stored in the browser. It is a design reference, not a backend application.
 
 ## Add the foundation to an existing app
 
 In a configured React + Tailwind v4 + shadcn project with CSS variables enabled:
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/foundation#v0.2.0
+npx shadcn@latest add Staiola/editorial-foundation/foundation#v0.3.0
 ```
 
 For just the theme and spacing/layout CSS:
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/theme#v0.2.0
+npx shadcn@latest add Staiola/editorial-foundation/theme#v0.3.0
 ```
 
 The repository is private. Authenticate with the GitHub CLI on the machine doing the install (`gh auth login`) or use the supported GitHub credentials for your environment. Never put a token in these commands or commit credentials.
@@ -84,7 +108,7 @@ Adjust imports to your configured aliases. These UI examples do not implement en
 
 | Source | Purpose |
 | --- | --- |
-| src/styles/tokens.json | Palette, fonts, spacing roles, radius |
+| src/styles/tokens.json and stone.tokens.json | Original and Stone palettes, fonts and spacing roles |
 | src/styles/foundation.css | Shared layout and composition rules |
 | src/components/ui | Styled shadcn controls |
 | src/components/foundation | Page header, field and layout compositions |
@@ -92,7 +116,7 @@ Adjust imports to your configured aliases. These UI examples do not implement en
 | src/styles/reference.css | Reference-only presentation; replace for a new product |
 | DESIGN.md | Human and agent design guidance |
 | AGENTS.md | Instructions loaded by Codex in the project |
-| system.config.json | Registry identity and source URL |
+| system.config.json | Registry identity, source URL and default style |
 
 Edit source files, then run:
 
@@ -100,7 +124,7 @@ Edit source files, then run:
 npm run check
 ```
 
-This regenerates theme CSS and both registry items, validates/builds the registry through the shadcn CLI, typechecks the project and builds the app. Generated files are tracked so GitHub users can inspect them, but the GitHub registry resolves actual source files from registry.json. Do not edit public/r or generated theme.css directly.
+This regenerates theme CSS and all four registry items, validates/builds the registry through the shadcn CLI, typechecks the project and builds the app. Generated files are tracked so GitHub users can inspect them, but the GitHub registry resolves actual source files from registry.json. Do not edit public/r or generated theme.css directly.
 
 The foundation source and the reference app use the same components. The dependency lockfile makes fresh installs repeatable. GitHub Actions runs the checks for pushes and pull requests and detects stale generated files.
 
