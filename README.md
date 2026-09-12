@@ -49,6 +49,8 @@ This requires GitHub access in that session. Files and instructions travel with 
 
 ## Browse the reference
 
+The system's landing page lives at `/landing.html` and links to the reference at `/`. It uses the shared components and tokens, with its own composition CSS in `src/styles/landing.css`. Both styles can be previewed with `?style=editorial` or `?style=stone`. The live sample stores its state only until the page reloads; the install command changes with the selected style. This page is part of the starter/reference site, not a new registry item.
+
 The app contains three views:
 
 - **Foundations:** typography, spacing relationships, semantic colours and optional expression.

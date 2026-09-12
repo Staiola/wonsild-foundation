@@ -1,5 +1,13 @@
 # Validation
 
+## Landing page
+
+- The landing page uses the existing 0.3.1 controls, layouts and theme tokens. It has separate composition CSS and does not change registry contents.
+- `npm run check` passes, including the additional production HTML entry.
+- Editorial and Stone were inspected at desktop and 375px phone widths. Neither had horizontal page overflow on the phone. The copy control retains a 44 × 44px target.
+- The style selector updates the page, reference links and versioned install command. The Stone command was copied and its clipboard text verified. Empty-name validation, successful session-only saving, the expressive switch, section anchors and navigation to the reference were exercised.
+- The page remains a local preview and private-repository source. No public deployment or exhaustive accessibility audit is claimed.
+
 ## 0.3.1 — Review fixes
 
 - `npm run check` passed: 36 opaque colour pairs, four official shadcn registry builds, TypeScript and the production reference/check-page build.
