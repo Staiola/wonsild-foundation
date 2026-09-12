@@ -3,7 +3,7 @@
 Your personal editorial design system: styled shadcn components, a working reference app, reusable layouts, and a registry for other projects.
 
 **Source:** https://github.com/Staiola/editorial-foundation  
-**Version:** 0.4.0
+**Version:** 0.4.1
 **Start here:** [DESIGN.md](DESIGN.md) for visual rules; [SYSTEM.md](SYSTEM.md) for how copies and updates work.
 
 ## Choose a style
@@ -17,13 +17,13 @@ For a new app from this template, choose Stone with `npm run style:set -- stone`
 For an existing configured shadcn app:
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/stone-foundation#v0.4.0
+npx shadcn@latest add Staiola/editorial-foundation/stone-foundation#v0.4.1
 ```
 
 For only the Stone theme and layout CSS:
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/stone-theme#v0.4.0
+npx shadcn@latest add Staiola/editorial-foundation/stone-theme#v0.4.1
 ```
 
 A fresh-session prompt / Raycast snippet:
@@ -64,13 +64,13 @@ The example data is held in memory and resets when the view is remounted or the 
 In a configured React + Tailwind v4 + shadcn project with CSS variables enabled:
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/foundation#v0.4.0
+npx shadcn@latest add Staiola/editorial-foundation/foundation#v0.4.1
 ```
 
 For just the theme and spacing/layout CSS:
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/theme#v0.4.0
+npx shadcn@latest add Staiola/editorial-foundation/theme#v0.4.1
 ```
 
 The repository is private. Authenticate with the GitHub CLI on the machine doing the install (`gh auth login`) or use the supported GitHub credentials for your environment. Never put a token in these commands or commit credentials.

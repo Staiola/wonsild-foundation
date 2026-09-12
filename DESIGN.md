@@ -1,6 +1,6 @@
-# Editorial foundation — 0.4.0
+# Editorial foundation — 0.4.1
 
-An editorial studio system for web applications and their public websites. The working name is descriptive, not a finished brand. Chosen direction: crisp typography, generous space, quiet controls. The attached instrument interface is a reference for alignment and hierarchy, not a template to reproduce.
+An editorial studio system for web applications and their public websites. The working name is descriptive, not a finished brand. Chosen direction: crisp typography, generous space, quiet controls.
 
 ## What makes it coherent
 
@@ -80,7 +80,7 @@ The preview's notebook lettering demonstrates this boundary: the letters can bec
 
 Check small phones, tablet, desktop, long labels, empty lists, real data, keyboard-only use, visible focus, error and loading states, dark mode, 200% zoom, reduced motion, and text/background contrast. Use the same core components in a marketing page, a working list/table, and a form before expanding the library.
 
-Version 0.4.0 includes a working React/shadcn reference app, four source-generated registry items, and a reusable starter. See VALIDATION.md for the checks performed. This is a foundation for production apps, not a certification of every future screen or third-party component.
+Version 0.4.1 includes a working React/shadcn reference app, four source-generated registry items, and a reusable starter. See VALIDATION.md for the checks performed. This is a foundation for production apps, not a certification of every future screen or third-party component.
 
 ## Reference implementation docs
 

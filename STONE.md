@@ -6,7 +6,7 @@ Stone keeps the foundation's components, spacing and behaviour. It changes typog
 
 A neutral grotesk for work, a considered serif for editorial moments, warm stone and deep charcoal. Yellow is a purposeful highlight. Keep the composition clear before adding expression.
 
-This implementation bundles Geist, Geist Mono and Source Serif 4. The serif family can be changed through `ef-font-serif`.
+Stone bundles Geist and Geist Mono for interface text and Source Serif 4 for display typography. The palette combines warm stone, charcoal, off-white and yellow.
 
 ## Type rules
 
@@ -17,7 +17,7 @@ This implementation bundles Geist, Geist Mono and Source Serif 4. The serif fami
 
 ## Colour and surfaces
 
-Stone uses a core palette of warm stone, charcoal, off-white and yellow, with supporting surfaces, muted text, input boundaries, focus and chart colours. A complementary dark palette supports app use.
+Stone defines matching light and dark palettes, including secondary surfaces, muted text, input boundaries, focus and chart colours.
 
 | Role | Light | Dark |
 | --- | --- | --- |
@@ -44,7 +44,7 @@ This changes the template's default theme at source. It keeps working after you 
 ## Use in an existing app
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/stone-foundation#v0.4.0
+npx shadcn@latest add Staiola/editorial-foundation/stone-foundation#v0.4.1
 ```
 
 If the existing project already has the foundation components, use `stone-theme` instead. Inspect changes before replacing locally modified styles. The registry copies source; it does not synchronise apps automatically. In the receiving AGENTS.md, point to `docs/editorial-foundation/DESIGN.md` and `docs/editorial-foundation/STONE.md` when installed with the full item.

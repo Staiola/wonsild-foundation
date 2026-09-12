@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.1
+
+- Describe both styles independently in the documentation and registry metadata.
+- Remove design-reference provenance while retaining the licenses for the components and fonts actually used.
+
 ## 0.4.0
 
 - Clarify the landing page offering, inventory, private access and three adoption paths.
