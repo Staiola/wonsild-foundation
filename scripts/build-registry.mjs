@@ -20,10 +20,11 @@ function cssObject(container) {
   }
   return result;
 }
+const baseCss = cssObject(postcss.parse(read('src/styles/base.css')));
 const layoutCss = cssObject(postcss.parse(read('src/styles/foundation.css')));
 const vars = structuredClone(tokens);
 vars.theme['color-destructive-foreground'] = 'var(--destructive-foreground)';
-const themeCss = { '@import "@fontsource-variable/dm-sans"': {}, ...layoutCss };
+const themeCss = { '@import "tw-animate-css"': {}, ...baseCss, '@import "@fontsource-variable/dm-sans"': {}, ...layoutCss };
 const common = { cssVars: vars, css: themeCss };
 const uiFiles = readdirSync(resolve(root, 'src/components/ui')).filter(f=>f.endsWith('.tsx')).sort().map(f=>({path:`src/components/ui/${f}`,type:'registry:ui',target:`@ui/${f}`}));
 const foundationFiles = readdirSync(resolve(root, 'src/components/foundation')).filter(f=>f.endsWith('.tsx')).sort().map(f=>({path:`src/components/foundation/${f}`,type:'registry:component',target:`@components/foundation/${f}`}));
@@ -31,11 +32,11 @@ const runtimeDependencies = Object.keys(pkg.dependencies).filter(name=>!['react'
 const items = [
   {
     name:'theme', type:'registry:theme', title:'Editorial theme', description:'Editorial light/dark palette, bundled font and shared spacing/layout styles.',
-    dependencies:[`@fontsource-variable/dm-sans@${versionOf('@fontsource-variable/dm-sans')}`], ...common,
+    dependencies:[`tw-animate-css@${versionOf('tw-animate-css')}`, `@fontsource-variable/dm-sans@${versionOf('@fontsource-variable/dm-sans')}`], ...common,
     docs:'Use CSS variables with Tailwind v4. The foundation styles use ef- class names. The theme does not replace existing components or change business logic.'
   },
   {
-    name:'foundation',type:'registry:item',title:'Editorial Foundation',description:'The full personal foundation: styled shadcn controls, layout primitives, fields, theme and design rules.',
+    name:'foundation',type:'registry:theme',title:'Editorial Foundation',description:'The full personal foundation: styled shadcn controls, layout primitives, fields, theme and design rules.',
     dependencies:[...runtimeDependencies, ...styles.editorial.fonts.map(name=>`${name}@${versionOf(name)}`)], ...common,
     files:[...uiFiles,...foundationFiles,{path:'src/lib/utils.ts',type:'registry:lib',target:'@lib/utils.ts'},{path:'DESIGN.md',type:'registry:file',target:'~/docs/editorial-foundation/DESIGN.md'},{path:'SYSTEM.md',type:'registry:file',target:'~/docs/editorial-foundation/SYSTEM.md'},{path:'THIRD_PARTY_NOTICES.md',type:'registry:file',target:'~/docs/editorial-foundation/THIRD_PARTY_NOTICES.md'}],
     docs:'Read docs/editorial-foundation/DESIGN.md. Add a pointer to it in your project AGENTS.md. Wrap the app in className="ef-system". Existing components with the same names need a diff review before replacement. This installs source copies, not automatic updates.'
@@ -45,13 +46,13 @@ const stoneVars = structuredClone(styles.stone.tokens);
 stoneVars.theme['color-destructive-foreground'] = 'var(--destructive-foreground)';
 const stoneCommon = {
   cssVars: stoneVars,
-  css: { ...Object.fromEntries(styles.stone.fonts.map(font=>[`@import "${font}"`, {}])), ...layoutCss }
+  css: { '@import "tw-animate-css"': {}, ...baseCss, ...Object.fromEntries(styles.stone.fonts.map(font=>[`@import "${font}"`, {}])), ...layoutCss }
 };
 const stoneFonts = styles.stone.fonts.map(name=>`${name}@${versionOf(name)}`);
 items.push({
   name:'stone-theme', type:'registry:theme', title:'Stone theme',
   description:'Warm stone, charcoal and yellow with Geist, Geist Mono and Source Serif 4.',
-  dependencies:stoneFonts, ...stoneCommon,
+  dependencies:[`tw-animate-css@${versionOf('tw-animate-css')}`, ...stoneFonts], ...stoneCommon,
   docs:'A separate theme in the Editorial Foundation family. Use CSS variables with Tailwind v4. This changes shared tokens, fonts and layout CSS. Review local styles before installing.'
 }, {
   ...items[1], name:'stone-foundation', title:'Stone Foundation',
@@ -60,6 +61,10 @@ items.push({
   files:[...items[1].files, {path:'STONE.md',type:'registry:file',target:'~/docs/editorial-foundation/STONE.md'}],
   docs:'Read docs/editorial-foundation/STONE.md and DESIGN.md. Stone overrides the original colour and typography direction. Point your AGENTS.md to both files and wrap the app in className="ef-system". Source copies do not update automatically.'
 });
+for (const item of items) {
+  item.meta = { version: pkg.version };
+  Object.assign(item.cssVars.theme, Object.fromEntries(['xs','sm','md','lg','xl'].map(size => [`radius-${size}`, 'var(--radius)'])));
+}
 const schema='https://ui.shadcn.com/schema/registry-item.json';
 const registry={$schema:'https://ui.shadcn.com/schema/registry.json',name:origin.name,homepage:origin.repository,items};
 writeFileSync(resolve(root,'registry.json'),JSON.stringify(registry,null,2)+'\n');

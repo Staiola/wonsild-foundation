@@ -15,6 +15,7 @@ export function CopyCommand({ value, label = 'Copy command' }: { value: string; 
     return () => { operation.current += 1; };
   }, [value]);
   async function copy() {
+    if (state === 'copying') return;
     const request = ++operation.current;
     setState('copying');
     try {
@@ -27,7 +28,7 @@ export function CopyCommand({ value, label = 'Copy command' }: { value: string; 
   return <div className="ef-copy-command">
     <div className="ef-copy-command-row">
       <code>{value}</code>
-      <Button type="button" variant="outline" onClick={copy} disabled={state === 'copying'} aria-describedby={statusId}>
+      <Button type="button" variant="outline" onClick={copy} aria-disabled={state === 'copying'} aria-busy={state === 'copying'}>
         {state === 'copied' ? <Check/> : <Copy/>}{state === 'copying' ? 'Copying…' : label}
       </Button>
     </div>

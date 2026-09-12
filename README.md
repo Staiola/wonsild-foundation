@@ -3,7 +3,7 @@
 Your personal editorial design system: styled shadcn components, a working reference app, reusable layouts, and a registry for other projects.
 
 **Source:** https://github.com/Staiola/editorial-foundation  
-**Version:** 0.4.1
+**Version:** 0.5.0
 **Start here:** [DESIGN.md](DESIGN.md) for visual rules; [SYSTEM.md](SYSTEM.md) for how copies and updates work.
 
 ## Choose a style
@@ -17,13 +17,13 @@ For a new app from this template, choose Stone with `npm run style:set -- stone`
 For an existing configured shadcn app:
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/stone-foundation#v0.4.1
+npx shadcn@latest add Staiola/editorial-foundation/stone-foundation#v0.5.0
 ```
 
 For only the Stone theme and layout CSS:
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/stone-theme#v0.4.1
+npx shadcn@latest add Staiola/editorial-foundation/stone-theme#v0.5.0
 ```
 
 A fresh-session prompt / Raycast snippet:
@@ -64,13 +64,13 @@ The example data is held in memory and resets when the view is remounted or the 
 In a configured React + Tailwind v4 + shadcn project with CSS variables enabled:
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/foundation#v0.4.1
+npx shadcn@latest add Staiola/editorial-foundation/foundation#v0.5.0
 ```
 
 For just the theme and spacing/layout CSS:
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/theme#v0.4.1
+npx shadcn@latest add Staiola/editorial-foundation/theme#v0.5.0
 ```
 
 The repository is private. Authenticate with the GitHub CLI on the machine doing the install (`gh auth login`) or use the supported GitHub credentials for your environment. Never put a token in these commands or commit credentials.
@@ -126,7 +126,7 @@ Edit source files, then run:
 npm run check
 ```
 
-This regenerates theme CSS and all four registry items, validates/builds the registry through the shadcn CLI, typechecks the project and builds the app. Generated files are tracked so GitHub users can inspect them, but the GitHub registry resolves actual source files from registry.json. Do not edit public/r or generated theme.css directly.
+This regenerates theme CSS and all four registry items, validates/builds the registry through the shadcn CLI, typechecks the project, builds the app, and installs all four items into bare and existing-palette consumer fixtures. Each of the eight consumer cases checks the installed palette, retained project CSS, base styles, version metadata and a production build. It needs npm network access and can take a few minutes. Generated files are tracked so GitHub users can inspect them, but the GitHub registry resolves actual source files from registry.json. Do not edit public/r or generated theme.css directly.
 
 The foundation source and the reference app use the same components. The dependency lockfile makes fresh installs repeatable. GitHub Actions runs the checks for pushes and pull requests and detects stale generated files.
 
@@ -142,7 +142,7 @@ PageHeader no longer adds a bottom margin. Put it with the next block in Editori
 
 The example app's navigation and list/detail compositions are demo-only, not installable registry blocks. The shared controls and layout primitives are distributed. Source adoption remains deliberate; existing project copies do not change automatically.
 
-Open /checks.html from the reference footer. Run its layout checks at desktop and phone widths, for both styles and light/dark modes, with normal and 200% root text. It checks actual rendered tab contrast, overflow, title visibility, switch geometry and header spacing. Exercise tab arrow keys, switch keyboard/corner clicks, long select options and dialog focus/Escape separately. This browser check is manual; npm run check and CI still run build, registry and token checks.
+Open /checks.html from the reference footer. Run its layout checks at desktop and phone widths, for both styles and light/dark modes, with normal and 200% root text. It checks actual rendered tab contrast, overflow, title visibility, switch geometry and header spacing. Exercise tab arrow keys, switch keyboard/corner clicks, long select options and dialog focus/Escape separately. This browser check is manual; npm run check and CI also run build, registry, token and isolated consumer-install checks.
 
 
 ## 0.4.0 examples and compositions
@@ -150,3 +150,18 @@ Open /checks.html from the reference footer. Run its layout checks at desktop an
 The full registries now include EmptyState and CopyCommand alongside PageHeader and TextField. Theme-only installs include shared CSS but do not install these React components. PageHeader accepts an optional level prop for a nested heading; its default is still h1.
 
 The reference supports direct links: /?view=components and /?view=workspace, combined with either style query. The component reference demonstrates empty states, copyable commands, tab navigation and a table. The shared project example supports search, creation, editing, archive and restore using session-only data. Its application logic and composition CSS live under src/examples and are not distributed as registry blocks.
+
+
+## 0.5.0 installation and layout changes
+
+All four registry items are explicit theme installs. Installing one replaces overlapping theme variables, including light/dark colours, fonts, spacing and radius mappings. Unrelated project variables and styles are retained; review the CSS diff before adopting it. Theme-only installs leave React components alone. Full installs copy the controls and compositions, and the CLI asks about existing files. Keep local component changes unless you deliberately choose to replace them.
+
+The registry now includes the same base layer and animation import as the starter. `meta.version` survives the shadcn build. Direct JSON and GitHub installs use the same item declarations.
+
+Stacks keep fields and content full width; direct Button children fit their label. Use `align="stretch"` on EditorialStack for full-width actions, or `align="start"` to make every child intrinsic. Parent stacks own PageHeader spacing.
+
+EmptyState defaults to the smaller `item` heading role. Semantic `level` remains independent of visual `size`; use `size="group"` when appropriate. Use `edge="bottom"` after a table header or `edge="none"` within an already divided section to avoid doubled rules.
+
+Table text wraps by default. Add `whitespace-nowrap` deliberately to short dates or amounts, and `ef-numeric` to changing values. When data cannot fit, the table wrapper becomes a labelled, keyboard-focusable horizontal scroll region and shows a visible scroll hint. Provide an `aria-label` on Table to identify it. Use fewer columns or a purpose-built list on phones when that is clearer.
+
+Consumer fixtures live under `scripts/fixtures/consumer`; they are tests, not shipped product blocks. `npm run check:consumers` recreates scratch apps in ignored `work/consumer-checks`. For a targeted rerun: `npm run check:consumers -- foundation-existing`. To inspect a finished full consumer, run its `npm run dev -- --port 5178`. No reference, preview-theme or landing CSS is installed there.

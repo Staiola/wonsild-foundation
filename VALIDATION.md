@@ -1,3 +1,30 @@
+# Validation — 0.5.0
+
+Checked 12 September 2026. This release addresses registry installation and shared composition defaults. Older validation notes below remain historical records.
+
+## Automated checks
+
+`npm run check` runs 36 token-contrast pairs, registry generation and shadcn schema/build validation, TypeScript and a Vite production build, then eight isolated consumer installations. Each of the four registry items is installed into both a bare Tailwind v4 fixture and a fixture with conflicting shadcn-style default variables. Fixtures contain no Editorial CSS or components before installation.
+
+The consumer checks verify every light/dark token, preservation of an unrelated project variable and rule, base CSS, the animation import and compiled animations, bundled fonts, version metadata after the CLI build, installed source files and production compilation. Theme-only cases verify that no React components are added. Source tests use the locked shadcn CLI version; they install actual local registry JSON, not copied starter CSS. GitHub authentication and public hosting are separate from these tests.
+
+## Browser checks
+
+- Independently installed Editorial invoice screen: 1280px and 375px page widths; at 375px, normal and 200% root text fit without page overflow. At normal text, the long-data table is approximately 430px wide inside its 327px viewport and exposes a labelled, keyboard-focusable scroll region plus a visible hint. Long client names wrap; the fixture opts short IDs, dates and amounts into nowrap.
+- Consumer defaults: label line height 20px (40px at 200%), Editorial radius 4px (8px at 200%), Stone radius 2px (4px at 200%), standalone export action approximately 127px at normal text, composed dialog trigger retains button slot and pointer styling. Both installed styles build and render their own palette and fonts.
+- Slow clipboard success and rejection (1.2-second fixture delay): focus remains on CopyCommand during and after completion, including Enter-key activation. Failure leaves the command selectable and reports the manual-copy fallback.
+- Installed dialog at 375px / 200% text: 311px wide, bounded height with internal scrolling, initial focus in Client and Escape returns focus to New invoice. Reference dialog title is 20/28px; its close control has no ring on mouse open.
+- Empty invoice filter: a labelled region with a 16px nested heading, no duplicated top border (`edge="bottom"`), and an intrinsic action. The test composition remains in scripts/fixtures/consumer, not in the shipped registry.
+- Component stress page at 375px: all existing geometry, overflow and tab-contrast checks pass for Editorial light at normal/200% text, Editorial dark at 200%, Stone light at normal text and Stone dark at 200%.
+- Landing retains a dark preference selected in the reference. Its computed Editorial dark background is rgb(25,27,26). The landing also fits a 375px viewport in light mode.
+- Workspace line filters share the shipped underline treatment with 0px horizontal padding; archiving returns focus to the active filter, and Clear search returns focus to the search input.
+
+## Limits
+
+The browser checks were performed in the available in-app browser. No new Safari/Firefox or screen-reader certification is claimed. The invoice harness is a component composition test, with demo actions and no financial backend. The change does not deploy a public website. Existing project copies upgrade deliberately; theme installs replace overlapping theme tokens, while unrelated CSS is retained.
+
+---
+
 # Validation
 
 ## 0.4.0 — Landing clarity and reusable compositions

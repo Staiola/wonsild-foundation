@@ -4,6 +4,7 @@
   "title": "Editorial theme",
   "description": "Editorial light/dark palette, bundled font and shared spacing/layout styles.",
   "dependencies": [
+    "tw-animate-css@1.4.0",
     "@fontsource-variable/dm-sans@5.3.0"
   ],
   "cssVars": {
@@ -11,7 +12,12 @@
       "font-sans": "var(--ef-font-sans)",
       "font-serif": "var(--ef-font-serif)",
       "font-mono": "var(--ef-font-mono)",
-      "color-destructive-foreground": "var(--destructive-foreground)"
+      "color-destructive-foreground": "var(--destructive-foreground)",
+      "radius-xs": "var(--radius)",
+      "radius-sm": "var(--radius)",
+      "radius-md": "var(--radius)",
+      "radius-lg": "var(--radius)",
+      "radius-xl": "var(--radius)"
     },
     "light": {
       "radius": "0.25rem",
@@ -101,6 +107,29 @@
     }
   },
   "css": {
+    "@import \"tw-animate-css\"": {},
+    "@layer base": {
+      "*": {
+        "@apply border-border": {}
+      },
+      "html": {
+        "font-family": "var(--font-sans)",
+        "color-scheme": "light"
+      },
+      "html.dark": {
+        "color-scheme": "dark"
+      },
+      "body": {
+        "margin": "0",
+        "background": "var(--background)",
+        "color": "var(--foreground)",
+        "font-size": "1rem",
+        "line-height": "1.5"
+      },
+      "button, a, input, select, textarea": {
+        "-webkit-tap-highlight-color": "transparent"
+      }
+    },
     "@import \"@fontsource-variable/dm-sans\"": {},
     "@layer components": {
       ".ef-system": {
@@ -120,6 +149,15 @@
         "flex-direction": "column",
         "gap": "var(--ef-group-gap)",
         "min-width": "0"
+      },
+      ".ef-stack > [data-slot=\"button\"]": {
+        "align-self": "flex-start"
+      },
+      ".ef-stack[data-align=\"start\"]": {
+        "align-items": "flex-start"
+      },
+      ".ef-stack[data-align=\"stretch\"] > [data-slot=\"button\"]": {
+        "align-self": "stretch"
       },
       ".ef-cluster": {
         "display": "flex",
@@ -155,6 +193,27 @@
         "font-family": "var(--font-sans)",
         "text-wrap": "balance",
         "overflow-wrap": "break-word"
+      },
+      ".ef-heading-item": {
+        "font-size": "1rem",
+        "line-height": "1.5",
+        "font-weight": "500"
+      },
+      ".ef-body": {
+        "font-size": "1rem",
+        "line-height": "1.5"
+      },
+      ".ef-lede": {
+        "font-size": "1.125rem",
+        "line-height": "1.5"
+      },
+      ".ef-caption": {
+        "font-size": ".875rem",
+        "line-height": "1.5",
+        "color": "var(--muted-foreground)"
+      },
+      ".ef-numeric": {
+        "font-variant-numeric": "tabular-nums"
       },
       ".ef-heading-group": {
         "font-size": "1.25rem",
@@ -205,6 +264,30 @@
         "font-size": "0.875rem",
         "color": "var(--muted-foreground)"
       },
+      ".ef-line-choice, [data-slot=\"tabs-list\"][data-variant=\"line\"] [data-slot=\"tabs-trigger\"]": {
+        "position": "relative"
+      },
+      ".ef-line-choice::after, [data-slot=\"tabs-list\"][data-variant=\"line\"] [data-slot=\"tabs-trigger\"]::after": {
+        "content": "''",
+        "position": "absolute",
+        "inset-inline": "0",
+        "bottom": "0",
+        "height": "2px",
+        "background": "var(--foreground)",
+        "opacity": "0"
+      },
+      ".ef-line-choice[aria-pressed=\"true\"], [data-slot=\"tabs-list\"][data-variant=\"line\"] [data-slot=\"tabs-trigger\"][data-state=\"active\"]": {
+        "color": "var(--foreground)"
+      },
+      ".ef-line-choice[aria-pressed=\"true\"]::after, [data-slot=\"tabs-list\"][data-variant=\"line\"] [data-slot=\"tabs-trigger\"][data-state=\"active\"]::after": {
+        "opacity": "1"
+      },
+      "[data-slot=\"tabs\"][data-orientation=\"vertical\"] [data-slot=\"tabs-list\"][data-variant=\"line\"] [data-slot=\"tabs-trigger\"]::after": {
+        "inset-inline": "auto 0",
+        "inset-block": "0",
+        "width": "2px",
+        "height": "auto"
+      },
       ".ef-field": {
         "display": "flex",
         "flex-direction": "column",
@@ -230,6 +313,12 @@
         "border-block": "1px solid var(--border)",
         "min-width": "0"
       },
+      ".ef-empty-state[data-edge=\"bottom\"]": {
+        "border-top": "0"
+      },
+      ".ef-empty-state[data-edge=\"none\"]": {
+        "border-block": "0"
+      },
       ".ef-empty-action": {
         "margin-top": "var(--ef-related-gap)"
       },
@@ -249,35 +338,14 @@
         "overflow-wrap": "anywhere",
         "white-space": "pre-wrap",
         "font-size": ".875rem",
-        "line-height": "1.7"
+        "line-height": "1.5",
+        "padding-block": ".625rem"
       },
       ".ef-copy-command-status": {
         "min-height": "1.5em",
         "font-size": ".875rem",
         "line-height": "1.5",
         "color": "var(--muted-foreground)"
-      },
-      ".ef-system [data-slot=\"button\"], .ef-system [data-slot=\"input\"], .ef-system [data-slot=\"select-trigger\"]": {
-        "min-height": "2.75rem"
-      },
-      ".ef-system [data-slot=\"button\"]": {
-        "box-shadow": "none",
-        "cursor": "pointer"
-      },
-      ".ef-system [data-slot=\"button\"]:disabled": {
-        "cursor": "not-allowed"
-      },
-      ".ef-system [data-slot=\"input\"], .ef-system [data-slot=\"select-trigger\"]": {
-        "font-size": "1rem",
-        "box-shadow": "none"
-      },
-      ".ef-system [data-slot=\"switch\"]": {
-        "cursor": "pointer"
-      },
-      ".ef-system [data-slot=\"label\"]": {
-        "font-size": "0.875rem",
-        "font-weight": "500",
-        "line-height": "1.4"
       },
       "@media (prefers-reduced-motion: reduce)": {
         "[data-slot=\"dialog-content\"], [data-slot=\"dialog-overlay\"], [data-slot=\"select-content\"], [data-slot=\"switch-thumb\"], [data-slot=\"button\"]": {
@@ -296,6 +364,9 @@
         }
       }
     }
+  },
+  "meta": {
+    "version": "0.5.0"
   },
   "docs": "Use CSS variables with Tailwind v4. The foundation styles use ef- class names. The theme does not replace existing components or change business logic.",
   "type": "registry:theme"

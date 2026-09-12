@@ -12,8 +12,8 @@ export function EditorialPage({ className, ...props }: React.ComponentProps<"div
 type Gap = "label" | "related" | "group" | "region" | "section";
 type StackProps = React.ComponentProps<"div"> & { gap?: Gap };
 
-export function EditorialStack({ gap = "group", className, ...props }: StackProps) {
-  return <div className={classes(`ef-stack ef-gap-${gap}`, className)} {...props} />;
+export function EditorialStack({ gap = "group", align, className, ...props }: StackProps & { align?: "start" | "stretch" }) {
+  return <div data-align={align} className={classes(`ef-stack ef-gap-${gap}`, className)} {...props} />;
 }
 
 export function EditorialCluster({ gap = "related", className, ...props }: StackProps) {
@@ -27,7 +27,7 @@ export function EditorialGrid({ className, ...props }: React.ComponentProps<"div
 
 type HeadingProps = React.HTMLAttributes<HTMLHeadingElement> & {
   level?: 1 | 2 | 3 | 4 | 5 | 6;
-  size?: "group" | "page" | "display";
+  size?: "item" | "group" | "page" | "display";
 };
 
 /** Heading level communicates structure; size only controls appearance. */

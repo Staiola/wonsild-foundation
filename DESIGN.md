@@ -1,4 +1,4 @@
-# Editorial foundation — 0.4.1
+# Editorial foundation — 0.5.0
 
 An editorial studio system for web applications and their public websites. The working name is descriptive, not a finished brand. Chosen direction: crisp typography, generous space, quiet controls.
 
@@ -36,6 +36,8 @@ Draft type direction: DM Sans for interface and editorial text, with Helvetica N
 | Metadata | 12 / 18px | 400; dates, secondary context |
 | UI label | 14 / 20px | 500; clear sentence case |
 | Body / inputs | 16 / 24px | 400; readable everyday work |
+| Item heading | 16 / 24px | 500; nested empty regions and compact groups |
+| Lede | 18 / 27px | 400; introductory copy |
 | Group heading | 20 / 28px | 500 |
 | Page heading | 32–48px / 1.1 | 400; tracking −0.04em |
 | Editorial display | 40–72px / 1.05 | 400; tracking −0.05em |
@@ -80,7 +82,7 @@ The preview's notebook lettering demonstrates this boundary: the letters can bec
 
 Check small phones, tablet, desktop, long labels, empty lists, real data, keyboard-only use, visible focus, error and loading states, dark mode, 200% zoom, reduced motion, and text/background contrast. Use the same core components in a marketing page, a working list/table, and a form before expanding the library.
 
-Version 0.4.1 includes a working React/shadcn reference app, four source-generated registry items, and a reusable starter. See VALIDATION.md for the checks performed. This is a foundation for production apps, not a certification of every future screen or third-party component.
+Version 0.5.0 includes a working React/shadcn reference app, four source-generated registry items, and a reusable starter. See VALIDATION.md for the checks performed. This is a foundation for production apps, not a certification of every future screen or third-party component.
 
 ## Reference implementation docs
 
@@ -108,3 +110,14 @@ Use EmptyState for an empty collection or an unsuccessful search. Explain the re
 Use CopyCommand for a visible, selectable command with clipboard status and a manual-copy fallback. It never executes the displayed code. It resets feedback when the value changes and ignores stale asynchronous clipboard results.
 
 PageHeader accepts a level prop (default 1) so embedded examples can keep a correct heading hierarchy without changing their appearance.
+
+
+## Shared defaults in 0.5.0
+
+Use `ef-body`, `ef-lede`, `ef-caption` and `ef-numeric` for recurring text roles. `EditorialHeading size="item"` is visually below the group role. Heading level controls semantics independently of size. All rectangular control radius mappings use the style's radius: 4px Editorial or 2px Stone. Circular switch tracks and slider thumbs remain intentional control shapes.
+
+EditorialStack stretches content but gives direct Button children their intrinsic width. `align="stretch"` explicitly stretches actions; `align="start"` makes all children intrinsic. Cluster remains useful for action groups. Button `variant="line"` provides the same underline appearance as line Tabs for filter buttons; keep button semantics for filtering and tab semantics for switching panels.
+
+EmptyState's `edge` decides which boundaries it owns. Use `both` for a standalone region, `bottom` below an existing rule, and `none` inside a divided section. Do not remove every border based only on sibling order. Keep its text inset aligned with the collection it replaces.
+
+Tables wrap text and retain a labelled, focusable horizontal scroll area. Set short dates and amounts to `whitespace-nowrap` selectively; long client names should wrap. At phone widths simplify columns when possible. List/detail screens should place the list above its details before either column becomes cramped, as the workspace example does at 50rem.

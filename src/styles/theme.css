@@ -39,10 +39,11 @@
   --font-sans: var(--ef-font-sans);
   --font-serif: var(--ef-font-serif);
   --font-mono: var(--ef-font-mono);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
+  --radius-xs: var(--radius);
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-xl: var(--radius);
 }
 :root {
   --radius: 0.25rem;

@@ -68,7 +68,7 @@ export function WorkspaceExample({ embedded = false }: { embedded?: boolean }) {
       }/>
       <p className="workspace-note">Example composition, not an individually installable block. The controls, layouts and empty state are included in the full foundation.</p>
       <div className="workspace-toolbar">
-        <div ref={filtersRef} className="workspace-filters" role="group" aria-label="Project status"><Button variant="ghost" aria-pressed={filter === 'active'} onClick={() => { setFilter('active'); setAnnouncement(''); }}>Active projects <span>{activeCount}</span></Button><Button variant="ghost" aria-pressed={filter === 'archive'} onClick={() => { setFilter('archive'); setAnnouncement(''); }}>Archive <span>{projects.length - activeCount}</span></Button></div>
+        <div ref={filtersRef} className="workspace-filters" role="group" aria-label="Project status"><Button variant="line" aria-pressed={filter === 'active'} onClick={() => { setFilter('active'); setAnnouncement(''); }}>Active projects <span>{activeCount}</span></Button><Button variant="line" aria-pressed={filter === 'archive'} onClick={() => { setFilter('archive'); setAnnouncement(''); }}>Archive <span>{projects.length - activeCount}</span></Button></div>
         <TextField ref={searchRef} label="Find a project" type="search" value={query} onChange={event => { setQuery(event.target.value); setAnnouncement(''); }} placeholder="Search projects or clients"/>
       </div>
       <div className="workspace-columns">

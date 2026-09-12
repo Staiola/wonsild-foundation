@@ -1,7 +1,7 @@
 # Source and version
 
 System: Editorial Foundation
-Version: 0.4.1
+Version: 0.5.0
 Source: https://github.com/Staiola/editorial-foundation
 Registry items: `theme`, `foundation`, `stone-theme` and `stone-foundation`
 

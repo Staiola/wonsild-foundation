@@ -1,6 +1,6 @@
 {
   "name": "editorial-foundation",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,11 +9,12 @@
     "preview": "vite preview --host 127.0.0.1",
     "typecheck": "tsc -b",
     "registry:build": "node scripts/build-registry.mjs && shadcn build --output public/r",
-    "check": "npm run check:contrast && npm run registry:build && npm run build",
+    "check": "npm run check:contrast && npm run registry:build && npm run build && npm run check:consumers",
     "predev": "node scripts/build-theme.mjs",
     "prebuild": "node scripts/build-theme.mjs",
     "check:contrast": "node scripts/check-contrast.mjs",
-    "style:set": "node scripts/set-style.mjs"
+    "style:set": "node scripts/set-style.mjs",
+    "check:consumers": "node scripts/check-consumers.mjs"
   },
   "dependencies": {
     "@fontsource-variable/dm-sans": "^5.3.0",

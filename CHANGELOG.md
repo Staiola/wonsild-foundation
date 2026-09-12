@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.5.0
+
+- Make full registry items explicit theme installs; include base styles, animation imports and consistent radius mappings in all four items. Preserve version metadata through the CLI build.
+- Add eight isolated consumer-install checks to the main check command and CI, including conflicting existing palettes and production builds.
+- Keep CopyCommand focusable while pending, preserve Button styling through asChild composition, and share dark preference between the landing and reference.
+- Give stacks intrinsic standalone actions with explicit alignment options; ship nested heading, body, lede, caption and numeric roles. Add EmptyState edge and size options.
+- Align line tabs and first/last table text, share underline styling with filter buttons, wrap long table cells and provide a focusable labelled scroll region. Increase slider-track contrast and use keyboard focus styling on dialog close.
+- Keep the invoices composition and clipboard/layout harness as consumer test fixtures, separate from distributed product components.
+
 ## 0.4.1
 
 - Describe both styles independently in the documentation and registry metadata.

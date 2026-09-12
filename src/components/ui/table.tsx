@@ -4,16 +4,32 @@ import * as React from "react"
 import { cn } from "cn"
 
 function Table({ className, ...props }: React.ComponentProps<"table">) {
+  const container = React.useRef<HTMLDivElement>(null);
+  const hintId = React.useId();
+  const [overflow, setOverflow] = React.useState(false);
+  React.useEffect(() => {
+    const node = container.current!;
+    const measure = () => setOverflow(node.scrollWidth > node.clientWidth + 1);
+    const observer = new ResizeObserver(measure);
+    observer.observe(node);
+    if (node.firstElementChild) observer.observe(node.firstElementChild);
+    measure();
+    return () => observer.disconnect();
+  }, []);
   return (
-    <div
-      data-slot="table-container"
-      className="relative w-full overflow-x-auto"
-    >
-      <table
-        data-slot="table"
-        className={cn("w-full caption-bottom text-sm", className)}
-        {...props}
-      />
+    <div className="min-w-0 w-full">
+      <div
+        ref={container}
+        data-slot="table-container"
+        role={overflow ? "region" : undefined}
+        aria-label={overflow ? props["aria-label"] ?? "Table" : undefined}
+        aria-describedby={overflow ? hintId : undefined}
+        tabIndex={overflow ? 0 : undefined}
+        className="relative w-full overflow-x-auto focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2"
+      >
+        <table data-slot="table" className={cn("w-full caption-bottom text-sm", className)} {...props} />
+      </div>
+      {overflow && <p id={hintId} className="ef-caption mt-2">Scroll horizontally to see all columns.</p>}
     </div>
   )
 }
@@ -69,7 +85,7 @@ function TableHead({ className, ...props }: React.ComponentProps<"th">) {
     <th
       data-slot="table-head"
       className={cn(
-        "h-10 px-2 text-left align-middle font-medium whitespace-nowrap text-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+        "h-10 px-2 text-left align-middle font-medium whitespace-normal [overflow-wrap:break-word] first:pl-0 last:pr-0 text-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
         className
       )}
       {...props}
@@ -82,7 +98,7 @@ function TableCell({ className, ...props }: React.ComponentProps<"td">) {
     <td
       data-slot="table-cell"
       className={cn(
-        "p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+        "p-2 align-middle whitespace-normal [overflow-wrap:break-word] first:pl-0 last:pr-0 [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
         className
       )}
       {...props}
