@@ -1,8 +1,10 @@
 import { useEffect, useState, type CSSProperties } from 'react';
-import { ArrowDown, ArrowRight, ArrowUpRight, Check, Copy } from 'lucide-react';
+import { ArrowDown, ArrowRight, ArrowUpRight, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+import { CopyCommand } from '@/components/foundation/copy-command';
+import { WorkspaceExample } from '@/examples/WorkspaceExample';
 import { TextField } from '@/components/foundation/text-field';
 import { EditorialPage, EditorialStack, EditorialCluster, EditorialHeading } from '@/components/foundation/layout';
 import config from '../../system.config.json';
@@ -26,10 +28,10 @@ export function Landing() {
   const [project, setProject] = useState('Something good');
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState('');
-  const [copyStatus, setCopyStatus] = useState('');
-  const item = style === 'stone' ? 'stone-foundation' : 'foundation';
+  const [installMode, setInstallMode] = useState<'foundation' | 'theme'>('foundation');
+  const item = `${style === 'stone' ? 'stone-' : ''}${installMode}`;
   const command = `npx shadcn@latest add Staiola/editorial-foundation/${item}#v${packageInfo.version}`;
-  const reference = `/?style=${style}`;
+  const reference = `/?style=${style}&view=components`;
 
   useEffect(() => {
     document.documentElement.dataset.style = style;
@@ -37,30 +39,25 @@ export function Landing() {
     const url = new URL(location.href);
     url.searchParams.set('style', style);
     history.replaceState(null, '', url);
-    setCopyStatus('');
   }, [style]);
-
-  async function copyCommand() {
-    try { await navigator.clipboard.writeText(command); setCopyStatus('Command copied.'); }
-    catch { setCopyStatus('Select and copy the command above. Clipboard access is unavailable.'); }
-  }
 
   return <div className="ef-system landing">
     <a className="landing-skip" href="#landing-main">Skip to content</a>
     <EditorialPage className="landing-shell">
       <header className="landing-header">
         <a href="#" className="landing-wordmark" aria-label="Editorial Foundation home">editorial<span>foundation</span><span className="landing-dot">.</span></a>
-        <nav aria-label="Main navigation"><a href="#approach">The approach</a><a href={reference}>Explore the system <ArrowUpRight size={14}/></a></nav>
-        <Button asChild variant="outline"><a href="#start">Start building <ArrowRight/></a></Button>
+        <nav aria-label="Main navigation"><a href="#approach">Design principles</a><a href={reference}>Browse components <ArrowUpRight size={14}/></a></nav>
+        <Button asChild variant="outline"><a href="#start">Get started <ArrowRight/></a></Button>
       </header>
 
       <main id="landing-main">
         <section className="landing-hero" aria-labelledby="hero-title">
           <EditorialStack gap="region" className="landing-intro">
-            <p className="landing-kicker">A personal design system for the web</p>
+            <p className="landing-kicker">An editorial design system built on shadcn/ui</p>
             <EditorialHeading level={1} size="display" id="hero-title">A considered start.<br/><em>A character<br className="landing-title-break"/> of your own.</em></EditorialHeading>
-            <p className="landing-lede">Good type. Thoughtful spacing. Controls that feel familiar. A foundation for the things you haven’t made yet.</p>
-            <EditorialCluster><Button asChild><a href={reference}>Explore the system <ArrowUpRight/></a></Button><a className="landing-text-link" href="#styles">Find your starting point <ArrowDown size={16}/></a></EditorialCluster>
+            <p className="landing-lede">Styled React components, shared typography and spacing rules, and two visual styles. Start a new app or add the foundation to an existing project—then make it your own.</p>
+            <EditorialCluster><Button asChild><a href={reference}>Browse components <ArrowUpRight/></a></Button><a className="landing-text-link" href="#start">Get started <ArrowDown size={16}/></a></EditorialCluster>
+            <p className="landing-access">Personal registry · GitHub access required</p>
           </EditorialStack>
 
           <div className="landing-specimen">
@@ -75,6 +72,18 @@ export function Landing() {
         </section>
 
         <div className="landing-colophon"><p>Built with the same foundation you can use.</p><p>React <span aria-hidden="true">·</span> Tailwind <span aria-hidden="true">·</span> shadcn</p></div>
+
+        <section id="included" className="landing-section landing-included" aria-labelledby="included-title">
+          <div className="landing-section-heading"><EditorialStack gap="related"><p className="landing-kicker">What comes with it</p><EditorialHeading size="page" id="included-title">The everyday essentials,<br/>already working together.</EditorialHeading></EditorialStack><a className="landing-text-link" href={reference}>Browse all examples <ArrowUpRight size={16}/></a></div>
+          <dl className="landing-inventory"><div><dt>11 styled controls</dt><dd>Buttons, inputs, selects, switches, sliders, tabs, dialogs, alerts, badges, labels and tables.</dd></div><div><dt>Layouts &amp; compositions</dt><dd>Page, stack, cluster, grid and heading primitives. Plus PageHeader, TextField, EmptyState and CopyCommand.</dd></div><div><dt>Two complete styles</dt><dd>Editorial and Stone, each with light and dark themes, bundled fonts and shared design guidance.</dd></div></dl>
+          <div className="landing-options"><div><h3>Theme only</h3><p>Colours, fonts and spacing/layout CSS. Use it with controls you already have.</p></div><div><h3>Full foundation</h3><p>The theme, styled controls, layout components and design rules, copied into your existing app.</p></div><div><h3>Starter repository</h3><p>A runnable React/Vite project with the full system and reference examples. Replace the demo with your product.</p></div></div>
+        </section>
+
+        <section id="example" className="landing-section landing-example" aria-labelledby="example-title">
+          <div className="landing-section-heading"><EditorialStack gap="related"><p className="landing-kicker">Example composition</p><EditorialHeading size="page" id="example-title">From controls<br/>to a working screen.</EditorialHeading></EditorialStack><p className="landing-body">Search, select and edit a project. Try the empty state or create something new. This example uses the same components you install.</p></div>
+          <div className="landing-workspace"><WorkspaceExample embedded/></div>
+          <a className="landing-text-link" href={`/?style=${style}&view=workspace`}>Open the full example <ArrowUpRight size={16}/></a>
+        </section>
 
         <section id="approach" className="landing-section landing-approach" aria-labelledby="approach-title">
           <EditorialStack gap="group"><p className="landing-kicker">Less starting over</p><EditorialHeading size="page" id="approach-title">Keep the good decisions.<br/>Make the interesting ones.</EditorialHeading><p className="landing-body">Every project needs a little structure. Carry the useful decisions with you, then spend your attention on what makes this one different.</p><a className="landing-text-link" href={`${repository}/blob/main/DESIGN.md`}>Read the design principles <ArrowUpRight size={16}/></a></EditorialStack>
@@ -104,7 +113,7 @@ export function Landing() {
 
         <section id="start" className="landing-section landing-start" aria-labelledby="start-title">
           <EditorialStack gap="group"><p className="landing-kicker">Take it into your next project</p><EditorialHeading size="page" id="start-title">A starting point.<br/>Yours from here.</EditorialHeading><p className="landing-body">Start a new app from the GitHub template, or add the foundation to an existing shadcn project. The code becomes part of your app.</p><Button asChild><a href={repository}>Open the GitHub template <ArrowUpRight/></a></Button><p className="landing-access">The repository is private. GitHub access is required.</p></EditorialStack>
-          <EditorialStack gap="group" className="landing-install"><div className="landing-install-heading"><h3>Add {style === 'stone' ? 'Stone' : 'Editorial'} to an existing app</h3><span>v{packageInfo.version}</span></div><p>For a configured React, Tailwind v4 and shadcn project:</p><div className="landing-code"><code>{command}</code><Button variant="outline" size="icon" aria-label="Copy installation command" onClick={copyCommand}>{copyStatus === 'Command copied.' ? <Check/> : <Copy/>}</Button></div><p className="landing-copy-status" role="status">{copyStatus}</p><p className="landing-install-note">Your installed copy is yours to change. Updates are deliberate, so a new system release won’t overwrite your work.</p><a className="landing-text-link" href={`${repository}/blob/main/README.md`}>Installation &amp; update guide <ArrowUpRight size={16}/></a></EditorialStack>
+          <EditorialStack gap="group" className="landing-install"><div className="landing-install-heading"><h3>Add {style === 'stone' ? 'Stone' : 'Editorial'} to an existing app</h3><span>v{packageInfo.version}</span></div><div className="ef-cluster" role="group" aria-label="Installation contents"><Button variant={installMode === 'foundation' ? 'default' : 'outline'} aria-pressed={installMode === 'foundation'} onClick={() => setInstallMode('foundation')}>Full foundation</Button><Button variant={installMode === 'theme' ? 'default' : 'outline'} aria-pressed={installMode === 'theme'} onClick={() => setInstallMode('theme')}>Theme only</Button></div><p>{installMode === 'foundation' ? 'Includes the theme, controls, layouts and design rules.' : 'Includes colour and font tokens, fonts and layout CSS. Your existing component source stays as it is.'}</p><p>Requires a configured React, Tailwind v4 and shadcn app, plus GitHub access.</p><CopyCommand value={command}/><p className="landing-install-note">Your installed copy is yours to change. Updates are deliberate, so a new system release won’t overwrite your work.</p><a className="landing-text-link" href={`${repository}/blob/main/README.md`}>Installation &amp; update guide <ArrowUpRight size={16}/></a></EditorialStack>
         </section>
       </main>
 

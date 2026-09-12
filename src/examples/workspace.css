@@ -1,0 +1,24 @@
+.workspace-demo { min-width: 0; }
+.workspace-demo .workspace-note { color: var(--muted-foreground); font-size: .875rem; line-height: 1.5; }
+.workspace-toolbar { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: var(--ef-group-gap); }
+.workspace-toolbar > .ef-field { flex: 0 1 20rem; }
+.workspace-filters { display: flex; flex-wrap: wrap; gap: var(--ef-group-gap); }
+.workspace-filters [data-slot=button] { border-radius: 0; border-bottom: 2px solid transparent; background: transparent; padding-inline: 0; color: var(--muted-foreground); }
+.workspace-filters [aria-pressed=true] { border-bottom-color: var(--foreground); color: var(--foreground); }
+.workspace-filters span { font-size: .75rem; }
+.workspace-columns { display: grid; grid-template-columns: minmax(0,1.5fr) minmax(15rem,1fr); gap: var(--ef-region-gap); }
+.workspace-columns > * { min-width: 0; }
+.workspace-list-head,.workspace-row { display: grid; grid-template-columns: minmax(0,1fr) 6rem; gap: var(--ef-related-gap); padding-inline: 1rem; }
+.workspace-list-head { font-size: .75rem; color: var(--muted-foreground); padding-bottom: var(--ef-related-gap); }
+.workspace-row { align-items: center; width: 100%; text-align: left; border-top: 1px solid var(--border); padding-block: var(--ef-group-gap); cursor: pointer; }
+.workspace-row:last-child { border-bottom: 1px solid var(--border); }
+.workspace-row:hover,.workspace-row[aria-pressed=true] { background: var(--muted); }
+.workspace-row[aria-pressed=true] { box-shadow: inset 3px 0 var(--ring); }
+.workspace-row:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
+.workspace-name { display: block; font-size: 1rem; font-weight: 500; letter-spacing: -.02em; overflow-wrap: anywhere; }
+.workspace-client { display: block; font-size: .75rem; color: var(--muted-foreground); margin-top: .5rem; overflow-wrap: anywhere; }
+.workspace-status { font-size: .875rem; color: var(--muted-foreground); overflow-wrap: anywhere; }
+.workspace-details { padding-left: var(--ef-group-gap); border-left: 1px solid var(--border); }
+.workspace-details > .ef-heading { margin-bottom: var(--ef-group-gap); }
+.workspace-announcement { min-height: 1.5em; }
+@media(max-width:50rem) { .workspace-columns { grid-template-columns: 1fr; } .workspace-details { padding-left: 0; padding-top: var(--ef-group-gap); border-left: 0; border-top: 1px solid var(--border); } }

@@ -1,4 +1,4 @@
-# Editorial foundation — 0.3.1
+# Editorial foundation — 0.4.0
 
 An editorial studio system for web applications and their public websites. The working name is descriptive, not a finished brand. Chosen direction: crisp typography, generous space, quiet controls. The attached instrument interface is a reference for alignment and hierarchy, not a template to reproduce.
 
@@ -80,7 +80,7 @@ The preview's notebook lettering demonstrates this boundary: the letters can bec
 
 Check small phones, tablet, desktop, long labels, empty lists, real data, keyboard-only use, visible focus, error and loading states, dark mode, 200% zoom, reduced motion, and text/background contrast. Use the same core components in a marketing page, a working list/table, and a form before expanding the library.
 
-Version 0.3.1 includes a working React/shadcn reference app, four source-generated registry items, and a reusable starter. See VALIDATION.md for the checks performed. This is a foundation for production apps, not a certification of every future screen or third-party component.
+Version 0.4.0 includes a working React/shadcn reference app, four source-generated registry items, and a reusable starter. See VALIDATION.md for the checks performed. This is a foundation for production apps, not a certification of every future screen or third-party component.
 
 ## Reference implementation docs
 
@@ -99,3 +99,12 @@ Long button text, tab labels, selected values and alert headings wrap by default
 Switch has a 44 × 44px button target (both visual sizes). The smaller track is decorative inside that target. Do not shrink the root hit area to match the track.
 
 Editorial's expressive serif is Georgia via the system serif stack; DM Sans is bundled. The demo explicitly labels layouts that are not shipped registry blocks. The separate /checks.html page exercises raw controls without reference.css.
+
+
+## Empty regions and copyable commands
+
+Use EmptyState for an empty collection or an unsuccessful search. Explain the reason and provide the next useful action. Its heading level is configurable; keep it below the surrounding section heading. It handles presentation only, not filtering or data fetching.
+
+Use CopyCommand for a visible, selectable command with clipboard status and a manual-copy fallback. It never executes the displayed code. It resets feedback when the value changes and ignores stale asynchronous clipboard results.
+
+PageHeader accepts a level prop (default 1) so embedded examples can keep a correct heading hierarchy without changing their appearance.

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { ArrowUpRight, Check, Moon, Plus, Sun } from "lucide-react";
+import { ArrowUpRight, Check, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -16,6 +16,10 @@ import editorialTokens from "./styles/tokens.json";
 import stoneTokens from "./styles/stone.tokens.json";
 import config from "../system.config.json";
 import packageInfo from "../package.json";
+import { WorkspaceExample } from './examples/WorkspaceExample';
+import { EmptyState } from '@/components/foundation/empty-state';
+import { CopyCommand } from '@/components/foundation/copy-command';
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 type Style = "editorial" | "stone";
 
 const VERSION = packageInfo.version;
@@ -44,7 +48,8 @@ function FoundationReference({ style }: { style: Style }) {
   </>;
 }
 
-function ComponentsReference() {
+function ComponentsReference({ style }: { style: Style }) {
+  const [empty, setEmpty] = useState(true);
   const [checked, setChecked] = useState(true);
   const [value, setValue] = useState([40]);
   const [saved, setSaved] = useState(false);
@@ -55,23 +60,11 @@ function ComponentsReference() {
       <section className="reference-section"><EditorialHeading>Fields</EditorialHeading><EditorialStack><TextField label="Project name" placeholder="A meaningful name" hint="Keep it short and descriptive."/><TextField label="Contact email" defaultValue="not-an-email" error="Enter a valid email address."/><TextField label="Reference number" defaultValue="Assigned after creation" disabled /></EditorialStack></section>
       <section className="reference-section"><EditorialHeading>Choices</EditorialHeading><EditorialStack><div className="ef-field"><Label htmlFor="sample-select">Visibility</Label><Select defaultValue="team"><SelectTrigger id="sample-select"><SelectValue/></SelectTrigger><SelectContent><SelectItem value="team">Studio team</SelectItem><SelectItem value="private">Only me</SelectItem></SelectContent></Select></div><div className="switch-row"><Label htmlFor="sample-switch">Email notifications</Label><Switch id="sample-switch" checked={checked} onCheckedChange={setChecked}/></div><div className="ef-field"><Label htmlFor="sample-slider">Intensity <span className="numeric">{value[0]}%</span></Label><Slider id="sample-slider" aria-label="Intensity" value={value} onValueChange={setValue} max={100} step={5}/></div></EditorialStack></section>
       <section className="reference-section"><EditorialHeading>Feedback</EditorialHeading><EditorialStack><EditorialCluster><Badge>Selected</Badge><Badge variant="outline">In review</Badge><Badge variant="secondary">Draft</Badge></EditorialCluster><Alert><Check/><AlertTitle>Changes saved</AlertTitle><AlertDescription>Your project is ready for the next step.</AlertDescription></Alert><Alert variant="destructive"><AlertTitle>Check the email address</AlertTitle><AlertDescription>There is one field to correct before continuing.</AlertDescription></Alert></EditorialStack></section>
+      <section className="reference-section"><EditorialHeading>Empty states</EditorialHeading><div aria-live="polite">{empty ? <EmptyState level={3} title="No matching projects" description="Try a different name or clear the current search." action={<Button variant="outline" onClick={()=>setEmpty(false)}>Clear example search</Button>}/> : <EditorialStack><p>A better beginning · Northline</p><Button variant="outline" onClick={()=>setEmpty(true)}>Show empty state</Button></EditorialStack>}</div></section>
+      <section className="reference-section"><EditorialHeading>Copy a command</EditorialHeading><p className="secondary-note">Selectable text, clipboard feedback and a manual-copy fallback.</p><CopyCommand value={`npx shadcn@latest add Staiola/editorial-foundation/${style === 'stone' ? 'stone-foundation' : 'foundation'}#v${VERSION}`}/></section>
+      <section className="reference-section"><EditorialHeading>Tab navigation</EditorialHeading><Tabs defaultValue="summary"><TabsList><TabsTrigger value="summary">Summary</TabsTrigger><TabsTrigger value="activity">Recent activity</TabsTrigger></TabsList><TabsContent value="summary"><p className="secondary-note">A short overview of the current project.</p></TabsContent><TabsContent value="activity"><p className="secondary-note">Project details updated today.</p></TabsContent></Tabs></section>
+      <section className="reference-section"><EditorialHeading>Tabular information</EditorialHeading><Table><TableCaption>Example project milestones</TableCaption><TableHeader><TableRow><TableHead>Milestone</TableHead><TableHead>Status</TableHead></TableRow></TableHeader><TableBody><TableRow><TableCell>Design direction</TableCell><TableCell>Approved</TableCell></TableRow><TableRow><TableCell>Component review</TableCell><TableCell>In progress</TableCell></TableRow></TableBody></Table></section>
     </div>
-  </>;
-}
-
-type Project = { id:number; name:string; client:string; status:string; visibility:string; archived:boolean };
-function WorkspaceExample() {
-  const [projects,setProjects]=useState<Project[]>([{id:1,name:'A better beginning',client:'Northline · Brand platform',status:'In progress',visibility:'team',archived:false},{id:2,name:'Systems for everyday',client:'Form & Field · Product design',status:'In review',visibility:'team',archived:false},{id:3,name:'The human side',client:'Independent · Research',status:'In progress',visibility:'private',archived:false}]);
-  const [selected,setSelected]=useState(1),[filter,setFilter]=useState('active'),[name,setName]=useState(projects[0].name),[visibility,setVisibility]=useState('team'),[error,setError]=useState(''),[saved,setSaved]=useState('');
-  const [open,setOpen]=useState(false),[newName,setNewName]=useState(''),[newError,setNewError]=useState('');
-  const visible=projects.filter(p=>p.archived===(filter==='archive'));
-  function selectProject(p:Project){setSelected(p.id);setName(p.name);setVisibility(p.visibility);setError('');setSaved('');}
-  return <>
-    <PageHeader eyebrow="Example app / Session-only demo" title="Room to do good work." description="Your projects, people and decisions. A clear view of what moves next." actions={<Dialog open={open} onOpenChange={v=>{setOpen(v);setNewError('')}}><DialogTrigger asChild><Button><Plus/> New project</Button></DialogTrigger><DialogContent><DialogHeader><DialogTitle>Start a project</DialogTitle><DialogDescription>A name is enough to get going. You can refine the details later.</DialogDescription></DialogHeader><form onSubmit={e=>{e.preventDefault();if(!newName.trim()){setNewError('Enter a project name.');return}const p={id:Date.now(),name:newName.trim(),client:'Studio · New project',status:'In progress',visibility:'team',archived:false};setProjects([...projects,p]);selectProject(p);setFilter('active');setOpen(false);setNewName('')}} noValidate><TextField label="Project name" value={newName} onChange={e=>{setNewName(e.target.value);setNewError('')}} error={newError} maxLength={64} autoFocus/><DialogFooter className="mt-6"><Button type="button" variant="outline" onClick={()=>setOpen(false)}>Cancel</Button><Button type="submit">Create project</Button></DialogFooter></form></DialogContent></Dialog>} />
-    <p className="demo-scope">Demo composition: the navigation, project list and details layout are examples, not installable blocks. Shared controls are included in the registry.</p>
-    <div className="workspace-filter" role="group" aria-label="Project status"><Button variant="ghost" aria-pressed={filter==='active'} onClick={()=>setFilter('active')}>Active projects <span>{projects.length}</span></Button><Button variant="ghost" aria-pressed={filter==='archive'} onClick={()=>setFilter('archive')}>Archive <span>0</span></Button></div>
-    <div className="workspace-grid"><section aria-label="Projects"><div className="project-list-head"><span>Project / Client</span><span>Status</span></div>{visible.length===0 ? <div className="empty-state"><h2>No archived projects</h2><p>Finished work will have a home here.</p><Button variant="outline" onClick={()=>setFilter('active')}>Back to active projects</Button></div> : visible.map(p=><button key={p.id} type="button" className="project-row" aria-pressed={selected===p.id} onClick={()=>selectProject(p)}><span><span className="project-name">{p.name}</span><span className="project-client">{p.client}</span></span><span className="project-status">{p.status}</span></button>)}</section><section className="project-details"><EditorialHeading>Project details</EditorialHeading>{visible.length>0 ? <form onSubmit={e=>{e.preventDefault();if(!name.trim()){setError('Enter a project name.');return}setProjects(projects.map(p=>p.id===selected?{...p,name:name.trim(),visibility}:p));setSaved('Saved in this preview')}} noValidate><EditorialStack><TextField label="Project name" value={name} onChange={e=>{setName(e.target.value);setError('');setSaved('')}} error={error} maxLength={64}/><div className="ef-field"><Label htmlFor="project-visibility">Visibility</Label><Select value={visibility} onValueChange={v=>{setVisibility(v);setSaved('')}}><SelectTrigger id="project-visibility"><SelectValue/></SelectTrigger><SelectContent><SelectItem value="team">Studio team</SelectItem><SelectItem value="private">Only me</SelectItem></SelectContent></Select><p className="ef-field-hint">Choose who can see this project.</p></div><EditorialCluster><Button type="submit">Save changes</Button><span className="secondary-note" aria-live="polite">{saved}</span></EditorialCluster></EditorialStack></form>:<p className="secondary-note">Select an active project to edit its details.</p>}</section></div>
-    <div className="notebook"><div><div className="section-label">From the studio notebook</div><h2>Leave a little<br/>room for play.</h2><p>Experiments, unfinished thoughts, and the things that don’t fit the brief.</p></div><div className="expression-type is-playful" aria-label="Experimental Aa lettering"><span>A</span><span>a</span><span>.</span></div></div>
   </>;
 }
 
@@ -80,6 +73,10 @@ export default function App() {
     const requested = new URLSearchParams(location.search).get("style");
     return requested === "stone" || requested === "editorial" ? requested : config.defaultStyle === "stone" ? "stone" : "editorial";
   });
+  const readView = () => { const value = new URLSearchParams(location.search).get('view'); return value === 'components' || value === 'workspace' ? value : 'foundation'; };
+  const [view, setView] = useState(readView);
+  useEffect(() => { const sync = () => { setView(readView()); const value = new URLSearchParams(location.search).get('style'); if (value === 'stone' || value === 'editorial') setStyle(value); }; window.addEventListener('popstate', sync); return () => window.removeEventListener('popstate', sync); }, []);
+  function changeView(value: string) { setView(value); const url = new URL(location.href); url.searchParams.set('view', value); history.replaceState(null, '', url); }
   useEffect(() => { document.documentElement.dataset.style = style; }, [style]);
   function changeStyle(value: string) {
     if (value !== "stone" && value !== "editorial") return;
@@ -88,5 +85,5 @@ export default function App() {
     history.replaceState(null, "", url);
   }
 
-  return <div className="ef-system"><a className="skip-link" href="#main-content">Skip to content</a><header className="site-header"><a className="wordmark" href="/" aria-label="Editorial Foundation home">editorial<span>foundation</span><span className="wordmark-dot">.</span></a><div className="header-tools"><div className="style-picker"><Label htmlFor="style-picker">Style</Label><Select value={style} onValueChange={changeStyle}><SelectTrigger id="style-picker"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="editorial">Editorial</SelectItem><SelectItem value="stone">Stone</SelectItem></SelectContent></Select></div><ThemeToggle/></div></header><Tabs defaultValue="foundation" className="site-tabs"><nav className="site-nav" aria-label="Reference pages"><TabsList><TabsTrigger value="foundation">Foundations</TabsTrigger><TabsTrigger value="components">Components</TabsTrigger><TabsTrigger value="workspace">Example app</TabsTrigger></TabsList><span className="version">v{VERSION}</span></nav><main id="main-content" className="site-main"><TabsContent value="foundation"><FoundationReference style={style}/></TabsContent><TabsContent value="components"><ComponentsReference/></TabsContent><TabsContent value="workspace"><WorkspaceExample/></TabsContent></main></Tabs><footer className="site-footer"><a href={`/landing.html?style=${style}`}>About Editorial Foundation</a><a href="/checks.html">Component stress checks</a></footer></div>;
+  return <div className="ef-system"><a className="skip-link" href="#main-content">Skip to content</a><header className="site-header"><a className="wordmark" href="/" aria-label="Editorial Foundation home">editorial<span>foundation</span><span className="wordmark-dot">.</span></a><div className="header-tools"><div className="style-picker"><Label htmlFor="style-picker">Style</Label><Select value={style} onValueChange={changeStyle}><SelectTrigger id="style-picker"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="editorial">Editorial</SelectItem><SelectItem value="stone">Stone</SelectItem></SelectContent></Select></div><ThemeToggle/></div></header><Tabs value={view} onValueChange={changeView} className="site-tabs"><nav className="site-nav" aria-label="Reference pages"><TabsList><TabsTrigger value="foundation">Foundations</TabsTrigger><TabsTrigger value="components">Components</TabsTrigger><TabsTrigger value="workspace">Example app</TabsTrigger></TabsList><span className="version">v{VERSION}</span></nav><main id="main-content" className="site-main"><TabsContent value="foundation"><FoundationReference style={style}/></TabsContent><TabsContent value="components"><ComponentsReference style={style}/></TabsContent><TabsContent value="workspace"><WorkspaceExample/></TabsContent></main></Tabs><footer className="site-footer"><a href={`/landing.html?style=${style}`}>About Editorial Foundation</a><a href="/checks.html">Component stress checks</a></footer></div>;
 }

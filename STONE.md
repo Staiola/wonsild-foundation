@@ -44,7 +44,7 @@ This changes the template's default theme at source. It keeps working after you 
 ## Use in an existing app
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/stone-foundation#v0.3.1
+npx shadcn@latest add Staiola/editorial-foundation/stone-foundation#v0.4.0
 ```
 
 If the existing project already has the foundation components, use `stone-theme` instead. Inspect changes before replacing locally modified styles. The registry copies source; it does not synchronise apps automatically. In the receiving AGENTS.md, point to `docs/editorial-foundation/DESIGN.md` and `docs/editorial-foundation/STONE.md` when installed with the full item.

@@ -229,6 +229,38 @@
       ".ef-field > [data-slot=\"select-trigger\"]": {
         "width": "100%"
       },
+      ".ef-empty-state": {
+        "padding-block": "var(--ef-region-gap)",
+        "border-block": "1px solid var(--border)",
+        "min-width": "0"
+      },
+      ".ef-empty-action": {
+        "margin-top": "var(--ef-related-gap)"
+      },
+      ".ef-copy-command": {
+        "min-width": "0"
+      },
+      ".ef-copy-command-row": {
+        "display": "flex",
+        "flex-wrap": "wrap",
+        "align-items": "flex-start",
+        "gap": "var(--ef-related-gap)",
+        "padding-block": "var(--ef-related-gap)"
+      },
+      ".ef-copy-command code": {
+        "flex": "1 1 16rem",
+        "min-width": "0",
+        "overflow-wrap": "anywhere",
+        "white-space": "pre-wrap",
+        "font-size": ".875rem",
+        "line-height": "1.7"
+      },
+      ".ef-copy-command-status": {
+        "min-height": "1.5em",
+        "font-size": ".875rem",
+        "line-height": "1.5",
+        "color": "var(--muted-foreground)"
+      },
       ".ef-system [data-slot=\"button\"], .ef-system [data-slot=\"input\"], .ef-system [data-slot=\"select-trigger\"]": {
         "min-height": "2.75rem"
       },

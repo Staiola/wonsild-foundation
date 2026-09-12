@@ -1,6 +1,15 @@
 # Validation
 
-## Landing page
+## 0.4.0 — Landing clarity and reusable compositions
+
+- Both full registry items installed into the separate existing React/Vite consumer projects, adding EmptyState and CopyCommand and updating PageHeader and shared CSS. Both consumers passed a production build importing and rendering the new components without reference or landing styles.
+- Installed compositions were inspected at desktop and 375px phone widths, including both styles in dark mode. The phone consumers retained a document width of 375px, visible command text, and correct h2 output from PageHeader level=2.
+- The landing page was checked in Editorial and Stone at 375px with no horizontal overflow. Its embedded workspace has one page h1, a section h2, workspace h3 and detail h4.
+- Search/no-results and clearing, editing and saving, archive/restore and the empty archive, creation validation and successful creation were exercised in the shared workspace. The direct components link opened the correct reference tab in the selected style. ArrowRight selected the new activity tab example.
+- Native clipboard interaction copied the displayed Stone full-foundation and theme-only commands. Changing the install option cleared the previous success message. Clipboard-denial and asynchronous race handling were reviewed in code; those failure paths were not browser-simulated.
+- Browser checks remain manual. This is not an exhaustive accessibility, zoom or cross-browser audit.
+
+## 0.3.1 landing page
 
 - The landing page uses the existing 0.3.1 controls, layouts and theme tokens. It has separate composition CSS and does not change registry contents.
 - `npm run check` passes, including the additional production HTML entry.

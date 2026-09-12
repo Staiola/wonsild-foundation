@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0
+
+- Clarify the landing page offering, inventory, private access and three adoption paths.
+- Add shared EmptyState and CopyCommand compositions to both full registries.
+- Reuse the working project example on the landing page, with search, creation, editing, archive and restore states.
+- Add reference examples for empty states, command copying, tabs and tables. Link directly to reference views with the view query parameter.
+- Add an optional heading level to PageHeader for embedded compositions. Existing usage keeps its h1 default.
+
 ## 0.3.1
 
 - Use opaque semantic text for enabled tabs; give switches a 44px actual button target.

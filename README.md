@@ -3,7 +3,7 @@
 Your personal editorial design system: styled shadcn components, a working reference app, reusable layouts, and a registry for other projects.
 
 **Source:** https://github.com/Staiola/editorial-foundation  
-**Version:** 0.3.1
+**Version:** 0.4.0
 **Start here:** [DESIGN.md](DESIGN.md) for visual rules; [SYSTEM.md](SYSTEM.md) for how copies and updates work.
 
 ## Choose a style
@@ -17,13 +17,13 @@ For a new app from this template, choose Stone with `npm run style:set -- stone`
 For an existing configured shadcn app:
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/stone-foundation#v0.3.1
+npx shadcn@latest add Staiola/editorial-foundation/stone-foundation#v0.4.0
 ```
 
 For only the Stone theme and layout CSS:
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/stone-theme#v0.3.1
+npx shadcn@latest add Staiola/editorial-foundation/stone-theme#v0.4.0
 ```
 
 A fresh-session prompt / Raycast snippet:
@@ -64,13 +64,13 @@ The example data is held in memory and resets when the view is remounted or the 
 In a configured React + Tailwind v4 + shadcn project with CSS variables enabled:
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/foundation#v0.3.1
+npx shadcn@latest add Staiola/editorial-foundation/foundation#v0.4.0
 ```
 
 For just the theme and spacing/layout CSS:
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/theme#v0.3.1
+npx shadcn@latest add Staiola/editorial-foundation/theme#v0.4.0
 ```
 
 The repository is private. Authenticate with the GitHub CLI on the machine doing the install (`gh auth login`) or use the supported GitHub credentials for your environment. Never put a token in these commands or commit credentials.
@@ -81,7 +81,7 @@ For a local installation without GitHub:
 npx shadcn@latest add /absolute/path/to/editorial-foundation/public/r/foundation.json
 ```
 
-Review differences if the receiving app already has components with the same names. The full item includes 11 styled controls, shared layouts, PageHeader, TextField, theme values, DM Sans, and design/source documentation. Wrap the app or page in `className="ef-system"`. Add a pointer to `docs/editorial-foundation/DESIGN.md` in the receiving project's AGENTS.md; installation deliberately does not replace that file.
+Review differences if the receiving app already has components with the same names. The full item includes 11 styled controls, shared layouts, PageHeader, TextField, EmptyState, CopyCommand, theme values, DM Sans, and design/source documentation. Wrap the app or page in `className="ef-system"`. Add a pointer to `docs/editorial-foundation/DESIGN.md` in the receiving project's AGENTS.md; installation deliberately does not replace that file.
 
 ```tsx
 import { EditorialPage, EditorialStack } from "@/components/foundation/layout";
@@ -143,3 +143,10 @@ PageHeader no longer adds a bottom margin. Put it with the next block in Editori
 The example app's navigation and list/detail compositions are demo-only, not installable registry blocks. The shared controls and layout primitives are distributed. Source adoption remains deliberate; existing project copies do not change automatically.
 
 Open /checks.html from the reference footer. Run its layout checks at desktop and phone widths, for both styles and light/dark modes, with normal and 200% root text. It checks actual rendered tab contrast, overflow, title visibility, switch geometry and header spacing. Exercise tab arrow keys, switch keyboard/corner clicks, long select options and dialog focus/Escape separately. This browser check is manual; npm run check and CI still run build, registry and token checks.
+
+
+## 0.4.0 examples and compositions
+
+The full registries now include EmptyState and CopyCommand alongside PageHeader and TextField. Theme-only installs include shared CSS but do not install these React components. PageHeader accepts an optional level prop for a nested heading; its default is still h1.
+
+The reference supports direct links: /?view=components and /?view=workspace, combined with either style query. The component reference demonstrates empty states, copyable commands, tab navigation and a table. The shared project example supports search, creation, editing, archive and restore using session-only data. Its application logic and composition CSS live under src/examples and are not distributed as registry blocks.
