@@ -1,4 +1,4 @@
-# Editorial foundation — 0.3
+# Editorial foundation — 0.3.1
 
 An editorial studio system for web applications and their public websites. The working name is descriptive, not a finished brand. Chosen direction: crisp typography, generous space, quiet controls. The attached instrument interface is a reference for alignment and hierarchy, not a template to reproduce.
 
@@ -80,7 +80,7 @@ The preview's notebook lettering demonstrates this boundary: the letters can bec
 
 Check small phones, tablet, desktop, long labels, empty lists, real data, keyboard-only use, visible focus, error and loading states, dark mode, 200% zoom, reduced motion, and text/background contrast. Use the same core components in a marketing page, a working list/table, and a form before expanding the library.
 
-Version 0.3 includes a working React/shadcn reference app, four source-generated registry items, and a reusable starter. See VALIDATION.md for the checks performed. This is a foundation for production apps, not a certification of every future screen or third-party component.
+Version 0.3.1 includes a working React/shadcn reference app, four source-generated registry items, and a reusable starter. See VALIDATION.md for the checks performed. This is a foundation for production apps, not a certification of every future screen or third-party component.
 
 ## Reference implementation docs
 
@@ -89,3 +89,13 @@ Version 0.3 includes a working React/shadcn reference app, four source-generated
 - https://ui.shadcn.com/docs/cli
 
 The original visual direction above remains the default. Stone inherits the spacing, component and interaction rules; STONE.md supplies its alternative type and colour rules.
+
+## Component contracts after the review
+
+Parent layouts own spacing between blocks. PageHeader has no bottom margin: use EditorialStack gap="region" around it and the following content, or set one gap in the page layout. Its internal label/title/description spacing remains local. In v0.3.0 it supplied its own outer margin; standalone consumers must add spacing when adopting this fix.
+
+Long button text, tab labels, selected values and alert headings wrap by default. Horizontal tab lists wrap into rows; retain Radix arrow-key order. Select popovers use a viewport-bounded popper layout. Review custom fixed heights before overriding these defaults. Icon-only controls still need an accessible label.
+
+Switch has a 44 × 44px button target (both visual sizes). The smaller track is decorative inside that target. Do not shrink the root hit area to match the track.
+
+Editorial's expressive serif is Georgia via the system serif stack; DM Sans is bundled. The demo explicitly labels layouts that are not shipped registry blocks. The separate /checks.html page exercises raw controls without reference.css.

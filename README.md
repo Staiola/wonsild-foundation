@@ -3,7 +3,7 @@
 Your personal editorial design system: styled shadcn components, a working reference app, reusable layouts, and a registry for other projects.
 
 **Source:** https://github.com/Staiola/editorial-foundation  
-**Version:** 0.3.0
+**Version:** 0.3.1
 **Start here:** [DESIGN.md](DESIGN.md) for visual rules; [SYSTEM.md](SYSTEM.md) for how copies and updates work.
 
 ## Choose a style
@@ -17,13 +17,13 @@ For a new app from this template, choose Stone with `npm run style:set -- stone`
 For an existing configured shadcn app:
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/stone-foundation#v0.3.0
+npx shadcn@latest add Staiola/editorial-foundation/stone-foundation#v0.3.1
 ```
 
 For only the Stone theme and layout CSS:
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/stone-theme#v0.3.0
+npx shadcn@latest add Staiola/editorial-foundation/stone-theme#v0.3.1
 ```
 
 A fresh-session prompt / Raycast snippet:
@@ -62,13 +62,13 @@ The example data is held in memory and resets when the view is remounted or the 
 In a configured React + Tailwind v4 + shadcn project with CSS variables enabled:
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/foundation#v0.3.0
+npx shadcn@latest add Staiola/editorial-foundation/foundation#v0.3.1
 ```
 
 For just the theme and spacing/layout CSS:
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/theme#v0.3.0
+npx shadcn@latest add Staiola/editorial-foundation/theme#v0.3.1
 ```
 
 The repository is private. Authenticate with the GitHub CLI on the machine doing the install (`gh auth login`) or use the supported GitHub credentials for your environment. Never put a token in these commands or commit credentials.
@@ -133,3 +133,11 @@ The foundation source and the reference app use the same components. The depende
 Improve a component in this source repository, update DESIGN.md when a rule changes, update the version and CHANGELOG.md, run checks and inspect affected examples. Commit the source and generated registry together, then tag a release. Upgrade existing projects explicitly after reviewing local differences. A template or registry copy does not automatically synchronise with its source.
 
 Consult [VALIDATION.md](VALIDATION.md) for this release's checks and their limits. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for the original shadcn license notice.
+
+## 0.3.1 migration and release checks
+
+PageHeader no longer adds a bottom margin. Put it with the next block in EditorialStack gap="region", as in the example above. If you used it alone, add the outer gap in your page layout. Buttons and selects grow to fit long text; tab lists can wrap; alert titles remain fully visible. Switch retains a small visual track inside a 44px target.
+
+The example app's navigation and list/detail compositions are demo-only, not installable registry blocks. The shared controls and layout primitives are distributed. Source adoption remains deliberate; existing project copies do not change automatically.
+
+Open /checks.html from the reference footer. Run its layout checks at desktop and phone widths, for both styles and light/dark modes, with normal and 200% root text. It checks actual rendered tab contrast, overflow, title visibility, switch geometry and header spacing. Exercise tab arrow keys, switch keyboard/corner clicks, long select options and dialog focus/Escape separately. This browser check is manual; npm run check and CI still run build, registry and token checks.

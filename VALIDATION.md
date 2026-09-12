@@ -1,4 +1,17 @@
-# Validation — 0.2.0
+# Validation
+
+## 0.3.1 — Review fixes
+
+- `npm run check` passed: 36 opaque colour pairs, four official shadcn registry builds, TypeScript and the production reference/check-page build.
+- Both full registry items installed successfully with the shadcn CLI into separate clean React/Vite projects. Editorial created 18 files; Stone created 19. Both consumers passed their own production build, with bundled fonts and no reference-page CSS.
+- All eight rendered checks passed in each installed consumer at 375px, for both light/dark modes and 100%/200% root font size. Both also passed at 1280px with 200% root font size in light mode. This is text enlargement, not browser zoom or a complete responsive matrix.
+- At 375px with normal text: page width stayed at 375px, the long button fit within 327px, the complete alert title remained visible, the switch measured 44 × 44px and the header had exactly one 32px region gap. Enlarged text retained those layout contracts without horizontal page overflow.
+- Rendered enabled, unselected tab contrast was 5.48:1/5.05:1 for Editorial light and 5.57:1/4.87:1 for Stone light (line/filled). Both dark styles exceeded 6.9:1 for both tab variants.
+- Manual interaction checks in the shared source fixture: tab arrow-key selection, switch Space and corner clicks outside its visual track, long select popover wrapping within the phone viewport, dialog initial focus, Shift+Tab containment and Escape focus return.
+- The reference example's selected and unselected rows share the same 24px/16px padding and aligned project/status columns. Typography attribution and demo-only scope are visible in the reference.
+- `/checks.html` is a manual browser regression fixture. CI continues to run build, registry, generated-file and token checks; it does not run these browser interactions. No full assistive-technology or cross-browser certification is claimed.
+
+## 0.2.0
 
 Completed locally:
 
