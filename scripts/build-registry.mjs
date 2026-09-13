@@ -31,12 +31,12 @@ const foundationFiles = readdirSync(resolve(root, 'src/components/foundation')).
 const runtimeDependencies = Object.keys(pkg.dependencies).filter(name=>!['react','react-dom'].includes(name) && !name.startsWith('@fontsource')).map(name=>`${name}@${versionOf(name)}`);
 const items = [
   {
-    name:'theme', type:'registry:theme', title:'Editorial theme', description:'Editorial light/dark palette, bundled font and shared spacing/layout styles.',
+    name:'theme', type:'registry:theme', title:'WonsildFoundation — Editorial theme', description:'Editorial light/dark palette, bundled font and shared spacing/layout styles.',
     dependencies:[`tw-animate-css@${versionOf('tw-animate-css')}`, `@fontsource-variable/dm-sans@${versionOf('@fontsource-variable/dm-sans')}`], ...common,
     docs:'Use CSS variables with Tailwind v4. The foundation styles use ef- class names. The theme does not replace existing components or change business logic.'
   },
   {
-    name:'foundation',type:'registry:theme',title:'Editorial Foundation',description:'The full personal foundation: styled shadcn controls, layout primitives, fields, theme and design rules.',
+    name:'foundation',type:'registry:theme',title:'WonsildFoundation — Editorial',description:'The full personal foundation: styled shadcn controls, layout primitives, fields, theme and design rules.',
     dependencies:[...runtimeDependencies, ...styles.editorial.fonts.map(name=>`${name}@${versionOf(name)}`)], ...common,
     files:[...uiFiles,...foundationFiles,{path:'src/lib/utils.ts',type:'registry:lib',target:'@lib/utils.ts'},{path:'DESIGN.md',type:'registry:file',target:'~/docs/editorial-foundation/DESIGN.md'},{path:'SYSTEM.md',type:'registry:file',target:'~/docs/editorial-foundation/SYSTEM.md'},{path:'THIRD_PARTY_NOTICES.md',type:'registry:file',target:'~/docs/editorial-foundation/THIRD_PARTY_NOTICES.md'}],
     docs:'Read docs/editorial-foundation/DESIGN.md. Add a pointer to it in your project AGENTS.md. Wrap the app in className="ef-system". Existing components with the same names need a diff review before replacement. This installs source copies, not automatic updates.'
@@ -50,12 +50,12 @@ const stoneCommon = {
 };
 const stoneFonts = styles.stone.fonts.map(name=>`${name}@${versionOf(name)}`);
 items.push({
-  name:'stone-theme', type:'registry:theme', title:'Stone theme',
+  name:'stone-theme', type:'registry:theme', title:'WonsildFoundation — Stone theme',
   description:'Warm stone, charcoal and yellow with Geist, Geist Mono and Source Serif 4.',
   dependencies:[`tw-animate-css@${versionOf('tw-animate-css')}`, ...stoneFonts], ...stoneCommon,
-  docs:'A separate theme in the Editorial Foundation family. Use CSS variables with Tailwind v4. This changes shared tokens, fonts and layout CSS. Review local styles before installing.'
+  docs:'A separate theme in the WonsildFoundation family. Use CSS variables with Tailwind v4. This changes shared tokens, fonts and layout CSS. Review local styles before installing.'
 }, {
-  ...items[1], name:'stone-foundation', title:'Stone Foundation',
+  ...items[1], name:'stone-foundation', title:'WonsildFoundation — Stone',
   description:'The full foundation in Stone: shared shadcn controls and spacing, with warm neutrals, yellow accents, Geist and Source Serif 4.',
   dependencies:[...runtimeDependencies,...stoneFonts], ...stoneCommon,
   files:[...items[1].files, {path:'STONE.md',type:'registry:file',target:'~/docs/editorial-foundation/STONE.md'}],

@@ -1,6 +1,8 @@
 {
-  "name": "editorial-foundation",
-  "repository": "https://github.com/Staiola/editorial-foundation",
+  "name": "wonsild-foundation",
+  "repository": "https://github.com/Staiola/wonsild-foundation",
   "owner": "Staiola",
-  "defaultStyle": "editorial"
+  "defaultStyle": "editorial",
+  "displayName": "WonsildFoundation",
+  "linearProject": "https://linear.app/staiol/project/wonsildfoundation-d41d990a84cc/overview"
 }

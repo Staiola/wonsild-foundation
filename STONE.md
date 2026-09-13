@@ -1,4 +1,4 @@
-# Stone — a second style in Editorial Foundation
+# Stone — a second style in WonsildFoundation
 
 Stone keeps the foundation's components, spacing and behaviour. It changes typography, palette and a few surface details. Use this document alongside DESIGN.md; the typography and colour choices here supersede the original style's choices.
 
@@ -44,7 +44,7 @@ This changes the template's default theme at source. It keeps working after you 
 ## Use in an existing app
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/stone-foundation#v0.5.0
+npx shadcn@latest add Staiola/wonsild-foundation/stone-foundation#v0.5.1
 ```
 
 If the existing project already has the foundation components, use `stone-theme` instead. Inspect changes before replacing locally modified styles. The registry copies source; it does not synchronise apps automatically. In the receiving AGENTS.md, point to `docs/editorial-foundation/DESIGN.md` and `docs/editorial-foundation/STONE.md` when installed with the full item.

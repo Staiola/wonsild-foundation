@@ -12,6 +12,7 @@ import packageInfo from '../../package.json';
 import editorialTokens from '../styles/tokens.json';
 import stoneTokens from '../styles/stone.tokens.json';
 
+import { SiteLinks } from "../SiteLinks";
 import { ThemeToggle } from "../ThemeToggle";
 type Style = 'editorial' | 'stone';
 const repository = config.repository;
@@ -41,13 +42,18 @@ export function Landing() {
     history.replaceState(null, '', url);
   }, [style]);
 
+  useEffect(() => {
+    // Cross-page anchors arrive before React has mounted their destination.
+    if (location.hash === '#start') document.getElementById('start')?.scrollIntoView();
+  }, []);
+
   return <div className="ef-system landing">
     <a className="landing-skip" href="#landing-main">Skip to content</a>
     <EditorialPage className="landing-shell">
       <header className="landing-header">
-        <a href="#" className="landing-wordmark" aria-label="Editorial Foundation home">editorial<span>foundation</span><span className="landing-dot">.</span></a>
-        <nav aria-label="Main navigation"><ThemeToggle/><a href="#approach">Design principles</a><a href={reference}>Browse components <ArrowUpRight size={14}/></a></nav>
-        <Button asChild variant="outline"><a href="#start">Get started <ArrowRight/></a></Button>
+        <a href="#" className="landing-wordmark" aria-label="WonsildFoundation home">Wonsild<span>Foundation</span><span className="landing-dot">.</span></a>
+        <SiteLinks style={style}/>
+        <ThemeToggle/>
       </header>
 
       <main id="landing-main">
@@ -113,11 +119,11 @@ export function Landing() {
 
         <section id="start" className="landing-section landing-start" aria-labelledby="start-title">
           <EditorialStack gap="group"><p className="ef-caption">Take it into your next project</p><EditorialHeading size="page" id="start-title">A starting point.<br/>Yours from here.</EditorialHeading><p className="landing-body">Start a new app from the GitHub template, or add the foundation to an existing shadcn project. The code becomes part of your app.</p><Button asChild><a href={repository}>Open the GitHub template <ArrowUpRight/></a></Button><p className="landing-access">The repository is private. GitHub access is required.</p></EditorialStack>
-          <EditorialStack gap="group" className="landing-install"><div className="landing-install-heading"><h3>Add {style === 'stone' ? 'Stone' : 'Editorial'} to an existing app</h3><span>v{packageInfo.version}</span></div><div className="ef-cluster" role="group" aria-label="Installation contents"><Button variant={installMode === 'foundation' ? 'default' : 'outline'} aria-pressed={installMode === 'foundation'} onClick={() => setInstallMode('foundation')}>Full foundation</Button><Button variant={installMode === 'theme' ? 'default' : 'outline'} aria-pressed={installMode === 'theme'} onClick={() => setInstallMode('theme')}>Theme only</Button></div><p>{installMode === 'foundation' ? 'Includes the theme, controls, layouts and design rules.' : 'Includes colour and font tokens, fonts and layout CSS. Your existing component source stays as it is.'}</p><p>Requires a configured React, Tailwind v4 and shadcn app, plus GitHub access.</p><CopyCommand value={command}/><p className="landing-install-note">Your installed copy is yours to change. Updates are deliberate, so a new system release won’t overwrite your work.</p><a className="landing-text-link" href={`${repository}/blob/main/README.md`}>Installation &amp; update guide <ArrowUpRight size={16}/></a></EditorialStack>
+          <EditorialStack gap="group" className="landing-install"><div className="landing-install-heading"><h3>Add {style === 'stone' ? 'Stone' : 'Editorial'} to an existing app</h3><a className="version-link" href={`${repository}/blob/main/CHANGELOG.md`} aria-label={`Version ${packageInfo.version} — changelog`}>v{packageInfo.version} ↗</a></div><div className="ef-cluster" role="group" aria-label="Installation contents"><Button variant={installMode === 'foundation' ? 'default' : 'outline'} aria-pressed={installMode === 'foundation'} onClick={() => setInstallMode('foundation')}>Full foundation</Button><Button variant={installMode === 'theme' ? 'default' : 'outline'} aria-pressed={installMode === 'theme'} onClick={() => setInstallMode('theme')}>Theme only</Button></div><p>{installMode === 'foundation' ? 'Includes the theme, controls, layouts and design rules.' : 'Includes colour and font tokens, fonts and layout CSS. Your existing component source stays as it is.'}</p><p>Requires a configured React, Tailwind v4 and shadcn app, plus GitHub access.</p><CopyCommand value={command}/><p className="landing-install-note">Your installed copy is yours to change. Updates are deliberate, so a new system release won’t overwrite your work.</p><a className="landing-text-link" href={`${repository}/blob/main/README.md`}>Installation &amp; update guide <ArrowUpRight size={16}/></a></EditorialStack>
         </section>
       </main>
 
-      <footer className="landing-footer"><div><a href="#" className="landing-wordmark">editorial<span>foundation</span>.</a><p>A little structure. More possibility.</p></div><nav aria-label="Footer navigation"><a href={reference}>Component reference</a><a href="/checks.html">System checks</a><a href={repository}>GitHub <ArrowUpRight size={14}/></a></nav></footer>
+      <footer className="landing-footer"><div><a href="#" className="landing-wordmark">Wonsild<span>Foundation</span>.</a><p>A little structure. More possibility.</p></div><nav aria-label="Footer navigation"><a href={reference}>Component reference</a><a href="/checks.html">System checks</a><a href={`${repository}/blob/main/CHANGELOG.md`}>Changelog</a><a href={repository}>GitHub <ArrowUpRight size={14}/></a></nav></footer>
     </EditorialPage>
   </div>;
 }

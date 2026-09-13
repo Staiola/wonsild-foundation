@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.1
+
+- Rename the system and reference site to WonsildFoundation; retain Editorial and Stone as styles and update source and install links to Staiola/wonsild-foundation while preserving installed documentation paths and component exports.
+- Link the WonsildFoundation Linear project and park the optional gradient-accent idea in STA-14.
+- Improve GitHub, guide and changelog visibility on the reference and landing pages; make cross-page installation links reach their section.
+- Add an optional Accent trace experiment to the site’s GitHub button, with a short clockwise nudge and reduced-motion support.
+- Reduce Editorial’s shared corner radius from 4px to 2px. Use the shared radius for badges so rectangular UI stays almost square in both styles.
+
 ## 0.5.0
 
 - Make full registry items explicit theme installs; include base styles, animation imports and consistent radius mappings in all four items. Preserve version metadata through the CLI build.

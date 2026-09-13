@@ -1,10 +1,19 @@
-# Editorial Foundation
+# WonsildFoundation
 
 Your personal editorial design system: styled shadcn components, a working reference app, reusable layouts, and a registry for other projects.
 
-**Source:** https://github.com/Staiola/editorial-foundation  
-**Version:** 0.5.0
+**Source:** [Staiola/wonsild-foundation](https://github.com/Staiola/wonsild-foundation)
+
+**Project planning:** [WonsildFoundation on Linear](https://linear.app/staiol/project/wonsildfoundation-d41d990a84cc/overview)
+
+**Version:** 0.5.1
 **Start here:** [DESIGN.md](DESIGN.md) for visual rules; [SYSTEM.md](SYSTEM.md) for how copies and updates work.
+
+## Name and project planning
+
+WonsildFoundation is the system name. Editorial and Stone are its visual styles. The GitHub repository is `Staiola/wonsild-foundation`. Installed `docs/editorial-foundation` paths and `Editorial*` component exports retain their existing names so current consumers keep working.
+
+Use the Linear project above for ideas and future work. The optional `gradient-accent` concept is parked in [STA-14](https://linear.app/staiol/issue/STA-14/explore-gradient-accent-as-an-optional-expressive-treatment); it is not part of the active theme. The current solid olive accent remains the default.
 
 ## Choose a style
 
@@ -17,18 +26,18 @@ For a new app from this template, choose Stone with `npm run style:set -- stone`
 For an existing configured shadcn app:
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/stone-foundation#v0.5.0
+npx shadcn@latest add Staiola/wonsild-foundation/stone-foundation#v0.5.1
 ```
 
 For only the Stone theme and layout CSS:
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/stone-theme#v0.5.0
+npx shadcn@latest add Staiola/wonsild-foundation/stone-theme#v0.5.1
 ```
 
 A fresh-session prompt / Raycast snippet:
 
-> Use the Stone variation of my design system at https://github.com/Staiola/editorial-foundation. For a new app, start from that template and run npm run style:set -- stone. Read AGENTS.md, DESIGN.md and STONE.md. Reuse its typography, spacing and shared controls. Build: [describe the app].
+> Use the Stone variation of my design system at https://github.com/Staiola/wonsild-foundation. For a new app, start from that template and run npm run style:set -- stone. Read AGENTS.md, DESIGN.md and STONE.md. Reuse its typography, spacing and shared controls. Build: [describe the app].
 
 ## Start a new app
 
@@ -43,7 +52,7 @@ Requires Node 22.12 or newer. The development server prints its local URL. Open 
 
 A prompt for a completely fresh session:
 
-> Create a private house energy calculator app from my GitHub template Staiola/editorial-foundation. Read AGENTS.md and DESIGN.md. Reuse the foundation's typography, spacing, controls and layouts. Replace the example app with the calculator; keep calculation logic separate from shared UI. Keep SYSTEM.md as the record of the source design system.
+> Create a private house energy calculator app from my GitHub template Staiola/wonsild-foundation. Read AGENTS.md and DESIGN.md. Reuse the foundation's typography, spacing, controls and layouts. Replace the example app with the calculator; keep calculation logic separate from shared UI. Keep SYSTEM.md as the record of the source design system.
 
 This requires GitHub access in that session. Files and instructions travel with the repository; the previous chat is not required. On another computer, sign into GitHub, clone the app repository, and run npm ci.
 
@@ -64,13 +73,13 @@ The example data is held in memory and resets when the view is remounted or the 
 In a configured React + Tailwind v4 + shadcn project with CSS variables enabled:
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/foundation#v0.5.0
+npx shadcn@latest add Staiola/wonsild-foundation/foundation#v0.5.1
 ```
 
 For just the theme and spacing/layout CSS:
 
 ```sh
-npx shadcn@latest add Staiola/editorial-foundation/theme#v0.5.0
+npx shadcn@latest add Staiola/wonsild-foundation/theme#v0.5.1
 ```
 
 The repository is private. Authenticate with the GitHub CLI on the machine doing the install (`gh auth login`) or use the supported GitHub credentials for your environment. Never put a token in these commands or commit credentials.
@@ -78,7 +87,7 @@ The repository is private. Authenticate with the GitHub CLI on the machine doing
 For a local installation without GitHub:
 
 ```sh
-npx shadcn@latest add /absolute/path/to/editorial-foundation/public/r/foundation.json
+npx shadcn@latest add /absolute/path/to/wonsild-foundation/public/r/foundation.json
 ```
 
 Review differences if the receiving app already has components with the same names. The full item includes 11 styled controls, shared layouts, PageHeader, TextField, EmptyState, CopyCommand, theme values, DM Sans, and design/source documentation. Wrap the app or page in `className="ef-system"`. Add a pointer to `docs/editorial-foundation/DESIGN.md` in the receiving project's AGENTS.md; installation deliberately does not replace that file.

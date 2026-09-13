@@ -1,8 +1,9 @@
 # Source and version
 
-System: Editorial Foundation
-Version: 0.5.0
-Source: https://github.com/Staiola/editorial-foundation
+System: WonsildFoundation
+Version: 0.5.1
+Source: https://github.com/Staiola/wonsild-foundation
+Project planning: https://linear.app/staiol/project/wonsildfoundation-d41d990a84cc/overview
 Registry items: `theme`, `foundation`, `stone-theme` and `stone-foundation`
 
 This is a source-copy design system for React, Tailwind v4 and shadcn CSS variables. Installed components belong to the consuming project. A later change in the source registry does not update them automatically.

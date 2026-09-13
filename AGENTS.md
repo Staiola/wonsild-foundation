@@ -1,4 +1,6 @@
-# Editorial Foundation
+# WonsildFoundation
+
+Project planning: https://linear.app/staiol/project/wonsildfoundation-d41d990a84cc/overview. Check this project for existing ideas before creating duplicate tasks. The gradient-accent idea is parked in STA-14; keep the solid accent unless the user resumes that exploration.
 
 Before changing the UI, inspect system.config.json for defaultStyle. For Stone also read STONE.md, which overrides the original typography and colours. Read DESIGN.md and inspect the existing reference app. Treat its components and tokens as the starting point for this project.
 

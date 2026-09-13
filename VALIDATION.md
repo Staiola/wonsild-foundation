@@ -1,4 +1,12 @@
-# Validation — 0.5.0
+# Validation — 0.5.1
+
+## 0.5.1 scope
+
+The rename retains the registry item IDs, installed documentation paths and component exports. The source URL and version-pinned commands now use Staiola/wonsild-foundation and v0.5.1. The solid olive accent remains the default; gradient-accent is a parked idea.
+
+The renamed landing and reference headers were reviewed at desktop and 375px phone widths. The full check command verifies token contrast, registry generation, TypeScript, the production build and all eight isolated consumer installs.
+
+## Previous 0.5.0 review
 
 Checked 12 September 2026. This release addresses registry installation and shared composition defaults. Older validation notes below remain historical records.
 

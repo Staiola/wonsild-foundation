@@ -1,6 +1,6 @@
 # Mission: a personal shadcn design system, available across projects
 
-The accepted visual direction is editorial studio: crisp typography, generous space, quiet controls, and optional expressive moments. Working name: Editorial Foundation.
+The accepted visual direction is editorial studio: crisp typography, generous space, quiet controls, and optional expressive moments. System name: WonsildFoundation.
 
 ## Delivery sequence
 
@@ -27,3 +27,7 @@ New app: create a repository from the template, open it in Codex, and describe t
 ## Scope
 
 The reference app is a developer/design reference, not a production product backend. The first release does not include accounts, billing, databases, a public website, or native mobile components. The energy calculator is a future example product, not an additional app to build in this delivery.
+
+## Parked ideas
+
+[STA-14 — gradient-accent](https://linear.app/staiol/issue/STA-14/explore-gradient-accent-as-an-optional-expressive-treatment): optional fluid blend of the solid accent and a companion colour. Deferred; keep the current solid olive accent. Planning lives in the WonsildFoundation Linear project.

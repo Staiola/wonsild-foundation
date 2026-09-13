@@ -1,6 +1,6 @@
-# Editorial foundation — 0.5.0
+# WonsildFoundation — 0.5.1
 
-An editorial studio system for web applications and their public websites. The working name is descriptive, not a finished brand. Chosen direction: crisp typography, generous space, quiet controls.
+An editorial studio system for web applications and their public websites. Chosen direction: crisp typography, generous space, quiet controls.
 
 ## What makes it coherent
 
@@ -52,7 +52,7 @@ Primary actions use ink on paper in reverse. The optional olive accent marks sel
 
 Keep colour roles stable. A brand accent never replaces the meaning of error, success, or warning. Pair status colour with text. Structural separators may be subtle; an input border must be visibly stronger when needed to identify its boundary. Interactive focus uses a distinct outline.
 
-Use a 4px base corner radius. Circular avatars are an explicit exception. Most content sits directly on the page. Add a bounded surface when it communicates grouping, selection, or an overlay; do not put every heading, statistic, and paragraph into its own card. Shadows are reserved for actual overlays.
+Use a 2px base corner radius (0.125rem at the default root size): almost square, with a subtle softening. Circular avatars are an explicit exception. Most content sits directly on the page. Add a bounded surface when it communicates grouping, selection, or an overlay; do not put every heading, statistic, and paragraph into its own card. Shadows are reserved for actual overlays.
 
 ## Components and behaviour
 
@@ -82,7 +82,7 @@ The preview's notebook lettering demonstrates this boundary: the letters can bec
 
 Check small phones, tablet, desktop, long labels, empty lists, real data, keyboard-only use, visible focus, error and loading states, dark mode, 200% zoom, reduced motion, and text/background contrast. Use the same core components in a marketing page, a working list/table, and a form before expanding the library.
 
-Version 0.5.0 includes a working React/shadcn reference app, four source-generated registry items, and a reusable starter. See VALIDATION.md for the checks performed. This is a foundation for production apps, not a certification of every future screen or third-party component.
+Version 0.5.1 includes a working React/shadcn reference app, four source-generated registry items, and a reusable starter. See VALIDATION.md for the checks performed. This is a foundation for production apps, not a certification of every future screen or third-party component.
 
 ## Reference implementation docs
 
@@ -112,9 +112,9 @@ Use CopyCommand for a visible, selectable command with clipboard status and a ma
 PageHeader accepts a level prop (default 1) so embedded examples can keep a correct heading hierarchy without changing their appearance.
 
 
-## Shared defaults in 0.5.0
+## Shared component defaults
 
-Use `ef-body`, `ef-lede`, `ef-caption` and `ef-numeric` for recurring text roles. `EditorialHeading size="item"` is visually below the group role. Heading level controls semantics independently of size. All rectangular control radius mappings use the style's radius: 4px Editorial or 2px Stone. Circular switch tracks and slider thumbs remain intentional control shapes.
+Use `ef-body`, `ef-lede`, `ef-caption` and `ef-numeric` for recurring text roles. `EditorialHeading size="item"` is visually below the group role. Heading level controls semantics independently of size. All rectangular control radius mappings use the style's radius: 2px for both Editorial and Stone, including badges. Circular switch tracks and slider thumbs remain intentional control shapes.
 
 EditorialStack stretches content but gives direct Button children their intrinsic width. `align="stretch"` explicitly stretches actions; `align="start"` makes all children intrinsic. Cluster remains useful for action groups. Button `variant="line"` provides the same underline appearance as line Tabs for filter buttons; keep button semantics for filtering and tab semantics for switching panels.
 
