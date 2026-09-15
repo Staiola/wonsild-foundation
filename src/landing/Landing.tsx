@@ -33,7 +33,7 @@ export function Landing() {
   const [installMode, setInstallMode] = useState<'foundation' | 'theme'>('foundation');
   const item = `${style === 'stone' ? 'stone-' : ''}${installMode}`;
   const command = `npx shadcn@latest add ${new URL(repository).pathname.slice(1)}/${item}#v${packageInfo.version}`;
-  const reference = `/?style=${style}&view=components`;
+  const reference = `./reference.html?style=${style}&view=components`;
 
   useEffect(() => {
     document.documentElement.dataset.style = style;
@@ -88,7 +88,7 @@ export function Landing() {
         <section id="example" className="landing-section landing-example" aria-labelledby="example-title">
           <div className="landing-section-heading"><EditorialStack gap="related"><p className="ef-caption">Example composition</p><EditorialHeading size="page" id="example-title">From controls<br/>to a working screen.</EditorialHeading></EditorialStack><p className="landing-body">Search, select and edit a project. Try the empty state or create something new. This example uses the same components you install.</p></div>
           <div className="landing-workspace"><WorkspaceExample embedded/></div>
-          <a className="landing-text-link" href={`/?style=${style}&view=workspace`}>Open the full example <ArrowUpRight size={16}/></a>
+          <a className="landing-text-link" href={`./reference.html?style=${style}&view=workspace`}>Open the full example <ArrowUpRight size={16}/></a>
         </section>
 
         <section id="approach" className="landing-section landing-approach" aria-labelledby="approach-title">
@@ -123,7 +123,7 @@ export function Landing() {
         </section>
       </main>
 
-      <footer className="landing-footer"><div><a href="#" className="landing-wordmark">Wonsild<span>Foundation</span>.</a><p>A little structure. More possibility.</p></div><nav aria-label="Footer navigation"><a href={reference}>Component reference</a><a href="/checks.html">System checks</a><a href={`${repository}/blob/main/CHANGELOG.md`}>Changelog</a><a href={repository}>GitHub <ArrowUpRight size={14}/></a></nav></footer>
+      <footer className="landing-footer"><div><a href="#" className="landing-wordmark">Wonsild<span>Foundation</span>.</a><p>A little structure. More possibility.</p></div><nav aria-label="Footer navigation"><a href={reference}>Component reference</a><a href="./checks.html">System checks</a><a href={`${repository}/blob/main/CHANGELOG.md`}>Changelog</a><a href={repository}>GitHub <ArrowUpRight size={14}/></a></nav></footer>
     </EditorialPage>
   </div>;
 }

@@ -7,7 +7,7 @@ import './styles/button-tracing-stroke.css';
 /** Navigation for the reference website, separate from installed product UI. */
 export function SiteLinks({ style, showComponents = true }: { style: string; showComponents?: boolean }) {
   return <nav className="site-links" aria-label="Main navigation">
-    {showComponents && <a href={`/?style=${style}&view=components`}>Components</a>}
+    {showComponents && <a href={`./reference.html?style=${style}&view=components`}>Components</a>}
     <a href={`${config.repository}/blob/main/README.md`}>Guide</a>
     {/* Temporary experiment: remove button-tracing-stroke to restore the plain outline. */}
     <Button asChild variant="outline" className="button-tracing-stroke"><a href={config.repository}>
@@ -19,6 +19,6 @@ export function SiteLinks({ style, showComponents = true }: { style: string; sho
         </svg>
       </span>
     </a></Button>
-    <Button asChild><a href={`/landing.html?style=${style}#start`}>Get started</a></Button>
+    <Button asChild><a href={`./landing.html?style=${style}#start`}>Get started</a></Button>
   </nav>;
 }
