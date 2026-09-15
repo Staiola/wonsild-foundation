@@ -123,7 +123,7 @@ export function Landing() {
         </section>
       </main>
 
-      <footer className="landing-footer"><div><a href="#" className="landing-wordmark">Wonsild<span>Foundation</span>.</a><p>A little structure. More possibility.</p></div><nav aria-label="Footer navigation"><a href={reference}>Component reference</a><a href="./checks.html">System checks</a><a href={`${repository}/blob/main/CHANGELOG.md`}>Changelog</a><a href={repository}>GitHub <ArrowUpRight size={14}/></a></nav></footer>
+      <footer className="landing-footer"><div><a href="#" className="landing-wordmark">Wonsild<span>Foundation</span>.</a><p>A little structure. More possibility.</p></div><nav aria-label="Footer navigation"><a href="https://staiola.studio/">By Staiola.Studio</a><a href={reference}>Component reference</a><a href="./checks.html">System checks</a><a href={`${repository}/blob/main/CHANGELOG.md`}>Changelog</a><a href={repository}>GitHub <ArrowUpRight size={14}/></a></nav></footer>
     </EditorialPage>
   </div>;
 }
