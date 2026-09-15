@@ -82,7 +82,7 @@ For just the theme and spacing/layout CSS:
 npx shadcn@latest add Staiola/wonsild-foundation/theme#v0.5.1
 ```
 
-The repository is private. Authenticate with the GitHub CLI on the machine doing the install (`gh auth login`) or use the supported GitHub credentials for your environment. Never put a token in these commands or commit credentials.
+The repository is public, so these commands need no GitHub login. Never put a token in these commands or commit credentials.
 
 For a local installation without GitHub:
 
