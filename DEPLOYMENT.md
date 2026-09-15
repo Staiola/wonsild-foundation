@@ -13,14 +13,19 @@ JGBH / jesperh portfolio repository). Its netlify.toml owns these routing rules:
 ```toml
 [[redirects]]
   from = "/wonsild"
-  to = "/wonsild/"
-  status = 301
+  to = "https://wonsild-foundation.netlify.app/"
+  status = 200
 
 [[redirects]]
   from = "/wonsild/*"
   to = "https://wonsild-foundation.netlify.app/:splat"
   status = 200
 ```
+
+Netlify matches trailing-slash variants alike, so both rules are rewrites.
+The landing HTML normalizes an exact /wonsild visit to /wonsild/ before loading
+relative assets, preserving query parameters and anchors. Do not add a Netlify
+/wonsild → /wonsild/ redirect: it also matches /wonsild/ and loops.
 
 Keep these before any catch-all rule. Both Netlify projects must belong to the
 same team. No DNS change is needed. Deploy Foundation before the parent routing

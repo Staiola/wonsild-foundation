@@ -2,6 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      // Netlify matches slash variants alike; normalize the mount before relative assets load.
+      if (window.location.pathname === "/wonsild") {
+        window.location.replace("/wonsild/" + window.location.search + window.location.hash);
+      }
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="WonsildFoundation — a personal design system, component reference and reusable shadcn starter." />
     <meta name="theme-color" content="#fafaf7" />
