@@ -7,11 +7,19 @@ The build uses relative asset and navigation URLs so it can also be served at
 https://staiola.studio/wonsild/. The landing page is index.html; the component
 reference is reference.html; checks.html contains the stress checks.
 
-The main staiola.studio repository owns these routing rules (in its _redirects):
+The main website repository is https://github.com/Staiola/Staiola (not the
+JGBH / jesperh portfolio repository). Its netlify.toml owns these routing rules:
 
-```text
-/wonsild /wonsild/ 301
-/wonsild/* https://wonsild-foundation.netlify.app/:splat 200
+```toml
+[[redirects]]
+  from = "/wonsild"
+  to = "/wonsild/"
+  status = 301
+
+[[redirects]]
+  from = "/wonsild/*"
+  to = "https://wonsild-foundation.netlify.app/:splat"
+  status = 200
 ```
 
 Keep these before any catch-all rule. Both Netlify projects must belong to the
